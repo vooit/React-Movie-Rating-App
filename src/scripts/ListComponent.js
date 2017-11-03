@@ -1,14 +1,11 @@
 import React from 'react';
 import Stars from './RatingComponent';
 import RatingButtonComponent from './RatingButtonComponent';
-// import experimental from './experimental';
 import classNames from 'classnames';
 
 //Material UI Buttons
 import FlatButton from 'material-ui/FlatButton';
 // import TextField from 'material-ui/TextField';
-
-
 //Material UI Dropdown
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
@@ -100,11 +97,12 @@ export default class MoviesList extends React.Component {
         });
     };
 
-    handleRequestClose (){
+    handleRequestClose() {
         this.setState({
             open: false
         });
     };
+
     //--------------------------//
 
 
@@ -192,7 +190,7 @@ export default class MoviesList extends React.Component {
                     />
                 </td>
                 <td>
-                    <RatingButtonComponent movieId={el.id} />
+                    <RatingButtonComponent movieId={el.id}/>
                 </td>
                 <td><Stars/></td>
                 <td>
@@ -206,26 +204,13 @@ export default class MoviesList extends React.Component {
         return (
             <div className="container">
 
-                <AddMovieComponent movies={this.state.movies} />
+                {/*<AddMovieComponent movies={this.state.movies} />*/}
 
                 <table className="table table-responsive table-hover table-sm">
                     <thead className="thead-inverse">
                     <tr>
                         <th>ID
-                            <svg
-                                onClick={() => this.ascendingSortBy('id')}
-                                className="rotate180"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24">
-                                <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
-                                      fill="white"/>
-                            </svg>
-                            <svg onClick={() => this.desendingSortBy('id')}
-                                 xmlns="http://www.w3.org/2000/svg" width="24"
-                                 height="24"
-                                 viewBox="0 0 24 24">
-                                <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z" fill="red"/>
-                            </svg>
+
                             <div>
                                 <RaisedButton
                                     onClick={this.handleTouchTap.bind(this)}
@@ -240,15 +225,42 @@ export default class MoviesList extends React.Component {
                                     animation={PopoverAnimationVertical}
                                 >
                                     <Menu>
-                                        <MenuItem primaryText="Refresh" />
-                                        <MenuItem primaryText="Help &amp; feedback" />
-
+                                        <svg
+                                            onClick={() => this.ascendingSortBy('id')}
+                                            className="rotate180"
+                                            xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24">
+                                            <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
+                                                  fill="white"/>
+                                        </svg>
+                                        <svg onClick={() => this.desendingSortBy('id')}
+                                             xmlns="http://www.w3.org/2000/svg" width="24"
+                                             height="24"
+                                             viewBox="0 0 24 24">
+                                            <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
+                                                  fill="red"/>
+                                        </svg>
                                     </Menu>
                                 </Popover>
                             </div>
                         </th>
                         <th>TITLE
-                            <span>
+                            <div>
+                                <RaisedButton
+                                    onClick={this.handleTouchTap.bind(this)}
+                                    label="SORT BY TITLE"
+                                />
+                                <Popover
+                                    open={this.state.open}
+                                    anchorEl={this.state.anchorEl}
+                                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                    onRequestClose={this.handleRequestClose.bind(this)}
+                                    animation={PopoverAnimationVertical}
+                                >
+                                    <Menu>
+                                      <span>
                                 <svg onClick={() => this.ascendingSortBy('title')}
                                      className="rotate180"
                                      xmlns="http://www.w3.org/2000/svg"
@@ -257,10 +269,9 @@ export default class MoviesList extends React.Component {
                                      viewBox="0 0 24 24">
                                 <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
                                       fill="white"/>
-                                </svg>
-                            </span>
+                                </svg></span>
 
-                            <span>
+                                        <span>
                                 <svg onClick={() => this.desendingSortBy('title')}
                                      xmlns="http://www.w3.org/2000/svg" width="24"
                                      height="24"
@@ -268,6 +279,9 @@ export default class MoviesList extends React.Component {
                                 <path
                                     d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
                                     fill="red"/></svg></span>
+                                    </Menu>
+                                </Popover>
+                            </div>
                         </th>
                         <th>ACTION</th>
                         <th>GET RATING</th>
