@@ -2,14 +2,14 @@
  * Created by Wojtek on 2017-10-29.
  */
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import classNames from 'classnames';
 
 
 export default class RatingButtonComponent extends React.Component {
     constructor(props) {
-    super(props);
+        super(props);
         this.state = {
             ratings: []
         };
@@ -18,6 +18,7 @@ export default class RatingButtonComponent extends React.Component {
     getRatingUrl(id) {
         return `https://movie-ranking.herokuapp.com/movies/${id}/ratings`;
     }
+
     getMovieRating(id, rating) {
         fetch(this.getRatingUrl(id), {
             method: 'get',
@@ -31,7 +32,7 @@ export default class RatingButtonComponent extends React.Component {
                 this.setState({
                     ratings
                 })
-              })
+            })
             .catch(function (err) {
                 console.log(err, 'rating not defined');
             })
@@ -39,40 +40,40 @@ export default class RatingButtonComponent extends React.Component {
 
     renderAvarage() {
         let ratings = this.state.ratings;
-        let avarageRating = ratings.reduce((prev, next)=> {
+        let avarageRating = ratings.reduce((prev, next) => {
             console.log(prev);   //   wyswietla kolejne zliczone sumy po iteracji
-             return prev +  next.rating
+            return prev + next.rating
         }, 0);
         // console.log(avarageRating/ratings.length)
-        let digitRating = (avarageRating/ratings.length).toFixed(0);
-        return <p className={classNames({
+        let digitRating = (avarageRating / ratings.length).toFixed(0);
+        return <span className={classNames({
             'red': false,
             'green': true,
-        })}>{digitRating}</p>
+        })}>{digitRating}</span>
     }
 
 
     render() {
         const styles = {
-            redText: {
-                color: 'rgb(255, 64, 129)'
+            buttonRating: {
+                cursor: 'pointer',
+                color: 'white',
+                fontWeight: '400',
+                fontSize:'10px'
             }
         };
         return (
-            <div className="newField">
+            <div className="avarage">
                 <FlatButton
-                onClick={this.getMovieRating.bind(this, this.props.movieId)}
-                label="get rating"
-                backgroundColor="rgb(0, 188, 212)"
-                hoverColor="rgb(33, 150, 243)"
-                labelPosition="before"
-                primary={true}
-                style={styles.redText}
-            />
-                <span>{ this.renderAvarage() }</span>
+                    onClick={this.getMovieRating.bind(this, this.props.movieId)}
+                    label="get rating"
+                    backgroundColor="rgb(0, 188, 212)"
+                    hoverColor="rgb(33, 150, 243)"
+                    primary={true}
+                    style={styles.buttonRating}
+                />
+                <p className="avarage--field">{ this.renderAvarage() }</p>
             </div>
         )
     }
-
-
 }

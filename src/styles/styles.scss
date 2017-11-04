@@ -1,10 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
-$material-blue:#00bcd4;
+
+$material-blue: #00bcd4;
 * {
   font-family: 'Roboto', sans-serif !important;
 }
 
+svg {
+  cursor: pointer;
+  transform:  scale(0.7);
+  &.rotate180 {
+    transform: rotate(180deg) scale(0.7);
+  }
+}
 #app {
+
+  .form-center {
+    justify-content: center;
+    text-align: center;
+  }
   caption {
     caption-side: top;
     text-align: center;
@@ -15,7 +28,6 @@ $material-blue:#00bcd4;
     .translate-left {
       transform: translate(-20px);
     }
-
     .translate-right {
       transform: translate(20px);
     }
@@ -23,13 +35,48 @@ $material-blue:#00bcd4;
   .table {
     margin: 0 auto;
     width: max-content;
-    tbody {
-      background: white;
-      tr td  {
-        button {
-          text-transform: uppercase;
+
+    thead {
+
+      th {
+        transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+        font-size: 13px;
+        font-weight: 400;
+        vertical-align: top;
+        button span {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
         }
       }
+    }
+    button {
+      text-transform: uppercase;
+      height: 24px !important;
+      line-height: 24px !important;
+      span {
+        font-weight: 200 !important;
+        font-size: 10px !important;
+      }
+    }
+    tbody {
+      background: white;
+      tr td {
+        .avarage {
+          display: block;
+          height: 70px;
+          &--field {
+            text-align: center;
+            .red {
+              color: red;
+              font-weight: 900;
+            }
+            .green {
+              color: green;
+            }
+          }
+        }
+      }
+      //STARS COMPONENT
       .rating {
         cursor: pointer;
         display: inline-block;
@@ -42,7 +89,7 @@ $material-blue:#00bcd4;
           color: rgba(10, 11, 10, 0.58);
           display: inline-block;
           position: relative;
-          width: 1.1em;
+          width: .7em;
         }
         .rating-on:before {
           color: $material-blue;
@@ -53,45 +100,6 @@ $material-blue:#00bcd4;
         }
       }
     }
-    thead {
-      svg.rotate180 {
-        transform: rotate(180deg);
-      }
-      svg {
-        cursor: pointer;
-      }
-    }
-    thead th {
-      transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-    }
-
   }
-}
 
-.form-center {
-  justify-content: center;
-  text-align: center;
-}
-
-/*RATING COMPONENT*/
-
-.red {
-  color: red;
-  font-weight: 900;
-}
-
-.green {
-  color: green;
-}
-
-.newField {
-  display: block;
-  height: 70px;
-}
-
-.experimental-block {
-  content: 'experimental block';
-  display: block;
-  background: red;
-  height: 70px;
 }
