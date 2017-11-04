@@ -8,7 +8,6 @@ module.exports = {
     context: resolve(__dirname, 'src'),
     entry: [
         './scripts/main.js'
-        // the entry point of our app
     ],
     output: {
         path: resolve(__dirname, 'dist'),
@@ -27,10 +26,10 @@ module.exports = {
                 use: ExtractTextPlugin.extract({
                         use: [
                             {
-                                loader: "css-loader" // translates CSS into CommonJS
+                                loader: "css-loader"
                             },
                             {
-                                loader: "sass-loader" // compiles Sass to CSS
+                                loader: "sass-loader"
                             }
                         ],
                         // use style-loader in development
