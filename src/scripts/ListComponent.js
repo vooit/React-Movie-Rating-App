@@ -1,7 +1,7 @@
 import React from 'react';
 import Stars from './RatingComponent';
 import RatingButtonComponent from './RatingButtonComponent';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 
 //Material UI Buttons
 import FlatButton from 'material-ui/FlatButton';
@@ -66,26 +66,6 @@ export default class MoviesList extends React.Component {
     }
 
 
-    getMovieRating(id, rating) {
-        fetch(this.getRatingUrl(id), {
-            method: 'get',
-            dataType: 'json',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'no-cache'
-            }
-        }).then(response => response.json())
-            .then(ratings => {
-                this.setState({
-                    ratings
-                })
-                // console.log(this.state.ratings)
-            })
-            .catch(function (err) {
-                console.log(err, 'rating not defined');
-            })
-    }
-
     //Material UI - handlers
     handleTouchTap(event) {
         // This prevents ghost click.
@@ -104,8 +84,6 @@ export default class MoviesList extends React.Component {
     };
 
     //--------------------------//
-
-
     onDeleteClick(movieId, e) {
         e.preventDefault();
         const filterMovies = this.state.movies.filter(v => v.id !== movieId);
@@ -113,7 +91,6 @@ export default class MoviesList extends React.Component {
             movies: filterMovies
         })
     }
-
     //SORTING
     compareBy(index) {
         return (a, b) => {
@@ -136,21 +113,7 @@ export default class MoviesList extends React.Component {
         this.setState({movies: arrayCopy});
     }
 
-    //DISPPLAY RATINGS OF CLICKED ID ????????????
-    renderAvarage() {
-        let ratings = this.state.ratings;
-        let avarageRating = ratings.reduce((prev, next) => {
-            console.log(prev);   //   wyswietla kolejne zliczone sumy po iteracji
-            // console.log(next.rating); //wyswietla kolejne wartosci rating
-            return prev + next.rating
-        }, 0);
-        let digitRating = (avarageRating / ratings.length).toFixed(0);
-        return <p className={classNames({
-            'red': false,
-            'green': true,
-        })}>{digitRating}</p>
-    }
-
+    //TABLE RENDER
     renderMoviesList() {
         const styles = {
             button: {
@@ -204,7 +167,7 @@ export default class MoviesList extends React.Component {
         return (
             <div className="container">
 
-                {/*<AddMovieComponent movies={this.state.movies} />*/}
+                <AddMovieComponent movies={this.state.movies} />
 
                 <table className="table table-responsive table-hover table-sm">
                     <thead className="thead-inverse">
