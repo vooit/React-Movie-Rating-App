@@ -15,7 +15,6 @@ export default class App extends React.Component {
                     <Paper zDepth={4}>
                         <MoviesList/>
                     </Paper>
-                
                 </div>
             </MuiThemeProvider>
         )

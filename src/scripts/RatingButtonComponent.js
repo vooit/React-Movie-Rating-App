@@ -2,7 +2,6 @@
  * Created by Wojtek on 2017-10-29.
  */
 import React from 'react';
-// import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import classNames from 'classnames';
 
@@ -14,7 +13,6 @@ export default class RatingButtonComponent extends React.Component {
             ratings: []
         };
     }
-
     getRatingUrl(id) {
         return `https://movie-ranking.herokuapp.com/movies/${id}/ratings`;
     }
