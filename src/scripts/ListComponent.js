@@ -1,7 +1,8 @@
 import React from 'react';
+// import classNames from 'classnames';
 import Stars from './RatingComponent';
 import RatingButtonComponent from './RatingButtonComponent';
-// import classNames from 'classnames';
+// import AddMovieComponent from './AddMovieComponent'
 
 //Material UI Buttons
 import FlatButton from 'material-ui/FlatButton';
@@ -11,15 +12,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import AddMovieComponent from './AddMovieComponent'
-import ActionAndroid from 'material-ui/svg-icons/action/delete'
 
+import ActionAndroid from 'material-ui/svg-icons/action/delete'
 
 // TO DO
 // get movie id na rating -> POST
 // fetch POST
 // get avarage onClick
-
 
 export default class MoviesList extends React.Component {
     constructor() {
@@ -44,12 +43,11 @@ export default class MoviesList extends React.Component {
         })
     }
 
-
     // FETCH API
     componentDidMount() {
         this.getMovies()
             .then((Response) => Response.json())
-            .then((movies, initialMovies) => {
+            .then((movies) => {
                 console.log(movies);
                 this.setState({
                     movies
@@ -60,7 +58,6 @@ export default class MoviesList extends React.Component {
                 console.log(err);
             })
     }
-
 
     //Material UI - handlers
     handleTouchTap(event) {
@@ -78,7 +75,6 @@ export default class MoviesList extends React.Component {
             open: false
         });
     };
-
     //--------------------------//
     onDeleteClick(movieId, e) {
         e.preventDefault();
@@ -156,7 +152,7 @@ export default class MoviesList extends React.Component {
         return (
             <div className="container">
 
-                <AddMovieComponent movies={this.state.movies}/>
+                {/*<AddMovieComponent movies={this.state.movies}/>*/}
 
                 <table className="table table-responsive table-hover table-sm">
                     <thead className="thead-inverse">
