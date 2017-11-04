@@ -33,10 +33,6 @@ export default class MoviesList extends React.Component {
         this.ascendingSortBy.bind(this);
     }
 
-    getRatingUrl(id) {
-        return `https://movie-ranking.herokuapp.com/movies/${id}/ratings`;
-    }
-
     getMovies() {
         return fetch('https://movie-ranking.herokuapp.com/movies.json', {
             method: 'get',

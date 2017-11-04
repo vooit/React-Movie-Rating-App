@@ -14,9 +14,11 @@ export default class Stars extends React.Component {
             movie_id: ''
         }
     }
+
     getRatingUrl(id) {
         return `https://movie-ranking.herokuapp.com/movies/${id}/ratings`;
     }
+
     // getRating() {
     //     return this.state.rating
     // }
@@ -56,14 +58,12 @@ export default class Stars extends React.Component {
         this.setTmpRating(this.state.rating);
     }
 
-
     componentWillReceiveProps(nextProps) {
         this.setRating(nextProps.defaultValue);
     }
 
-
     rateMovie(id, rating) {
-        const dupa  = this.state.rating;
+        const dupa = this.state.rating;
         return fetch(this.getRatingUrl(id), {
             method: 'post',
             dataType: 'json',
@@ -92,19 +92,12 @@ export default class Stars extends React.Component {
         }
 
         return (
-            <div className={classNames({
-                'rating': true,
-                'rating-readonly': this.props.readonly,
-            })}
-                 onMouseOut={this.reset.bind(this)}
-            >
-                {stars}
-                {this.props.readonly || !this.props.id
-                    ? null
-                    : <input
-                        type="hidden"
-                        id={this.props.id}
-                        value={this.state.rating}/>
+            <div className={classNames({'rating': true, 'rating-readonly': this.props.readonly,})}
+                 onMouseOut={this.reset.bind(this)}>{stars}
+                {this.props.readonly || !this.props.id ? null : <input
+                    type="hidden"
+                    id={this.props.id}
+                    value={this.state.rating}/>
                 }
             </div>
         )
