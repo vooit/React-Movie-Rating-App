@@ -10,18 +10,13 @@ export default class Stars extends React.Component {
         super(props);
         this.state = {
             rating: props.defaultValue,
-            tmpRating: props.defaultValue,
-            movie_id: ''
+            tmpRating: props.defaultValue
         }
     }
 
     getRatingUrl(id) {
         return `https://movie-ranking.herokuapp.com/movies/${id}/ratings`;
     }
-
-    // getRating() {
-    //     return this.state.rating
-    // }
 
     //  hover effect
     setTmpRating(rating) {
@@ -33,27 +28,23 @@ export default class Stars extends React.Component {
             tmpRating: rating,
             rating: rating
         });
-        const myRating = this.state.rating;
-        // console.log(myRating);
         const newRatingObject = {
-            // movie_id: this.props.movieId,
+            movie_id: this.props.movieId,
             rating: this.state.rating
         };
-        // console.log(newRatingObject);
-        const dupa = this.state.rating;
-        console.log(dupa);
-        return fetch(this.getRatingUrl(movieId), {
+        console.log(newRatingObject);
+        return fetch(this.getRatingUrl(movieId, rating), {
             method: 'post',
             dataType: 'json',
-            data: {
-                rating
-            },
             headers: {
                 'Content-Type': 'application/json',
                 'Cache-Control': 'no-cache'
-            }
-        })
+            },
+            body: JSON.stringify({
+                rating
+            })
 
+        })
     }
 
     reset() {
@@ -98,6 +89,5 @@ Stars.propTypes = {
 };
 Stars.defaultProps = {
     defaultValue: 0,
-    //  stars number
     max: 5,
 };
