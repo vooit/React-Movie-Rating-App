@@ -37,11 +37,18 @@ export default class RatingButtonComponent extends React.Component {
     }
 
     renderAvarage() {
+
         let ratings = this.state.ratings;
         let avarageRating = ratings.reduce((prev, next) => {
             return prev + next.rating
         }, 0);
         let digitRating = (avarageRating / ratings.length).toFixed(0);
+        //     className={i <= this.state.tmpRating ? 'rating-on' : null}
+
+        if (isNaN(digitRating)) {
+            return 0;
+        }
+
         return <span className={classNames({
             'red': false,
             'green': true,
@@ -54,7 +61,7 @@ export default class RatingButtonComponent extends React.Component {
                 cursor: 'pointer',
                 color: 'white',
                 fontWeight: '400',
-                fontSize:'10px'
+                fontSize: '10px'
             }
         };
         return (

@@ -6,13 +6,9 @@ import React from 'react';
 import classNames from 'classnames';
 import Stars from './StarsComponent';
 import RatingButtonComponent from './RatingButtonComponent';
-// import TableHeaderComponent from './TableHeaderComponent';
-// import AddMovieComponent from './AddMovieComponent';
-
 
 //Material UI Buttons
 import FlatButton from 'material-ui/FlatButton';
-// import TextField from 'material-ui/TextField';
 //Material UI Dropdown
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';

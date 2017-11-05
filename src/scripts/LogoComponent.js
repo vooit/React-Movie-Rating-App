@@ -2,7 +2,7 @@
  * Created by Wojtek on 2017-10-19.
  */
 import React from 'react';
-import Logo from '../img/camera.png';
+// import Logo from '../img/camera.png';
 
 const LogoComponent = () => {
     const style = {
@@ -14,7 +14,7 @@ const LogoComponent = () => {
         <div>
             <caption>RATING MOVIE APP</caption>
             <img src="src/img/camera.png" style={style}/>
-            <img src={Logo} style={style}/>
+            {/*<img src={Logo} style={style}/>*/}
         </div>
     )
 };
