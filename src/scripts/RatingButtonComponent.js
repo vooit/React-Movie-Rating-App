@@ -5,7 +5,6 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import classNames from 'classnames';
 
-
 export default class RatingButtonComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -13,6 +12,7 @@ export default class RatingButtonComponent extends React.Component {
             ratings: []
         };
     }
+
     getRatingUrl(id) {
         return `https://movie-ranking.herokuapp.com/movies/${id}/ratings`;
     }
@@ -39,17 +39,14 @@ export default class RatingButtonComponent extends React.Component {
     renderAvarage() {
         let ratings = this.state.ratings;
         let avarageRating = ratings.reduce((prev, next) => {
-            console.log(prev);   //   wyswietla kolejne zliczone sumy po iteracji
             return prev + next.rating
         }, 0);
-        // console.log(avarageRating/ratings.length)
         let digitRating = (avarageRating / ratings.length).toFixed(0);
         return <span className={classNames({
             'red': false,
             'green': true,
         })}>{digitRating}</span>
     }
-
 
     render() {
         const styles = {
@@ -70,7 +67,7 @@ export default class RatingButtonComponent extends React.Component {
                     primary={true}
                     style={styles.buttonRating}
                 />
-                <p className="avarage--field">{ this.renderAvarage() }</p>
+                <p className="avarage--field"> { this.renderAvarage() }</p>
             </div>
         )
     }

@@ -28,43 +28,21 @@ export default class Stars extends React.Component {
         this.setState({tmpRating: rating});
     }
 
-    setRating(rating) {
+    setRating(rating, movieId) {
         this.setState({
             tmpRating: rating,
             rating: rating
-        })
+        });
         const myRating = this.state.rating;
-        console.log(myRating);
+        // console.log(myRating);
         const newRatingObject = {
-            movie_id: '',
+            // movie_id: this.props.movieId,
             rating: this.state.rating
         };
-        // console.log(newRatingObject)
-
-        // fetch(this.getRatingUrl(id), {
-        //     method: 'post',
-        //     dataType: 'json',
-        //     data: {
-        //         rating
-        //     },
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Cache-Control': 'no-cache'
-        //     }
-        // })
-    }
-
-    reset() {
-        this.setTmpRating(this.state.rating);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setRating(nextProps.defaultValue);
-    }
-
-    rateMovie(id, rating) {
+        // console.log(newRatingObject);
         const dupa = this.state.rating;
-        return fetch(this.getRatingUrl(id), {
+        console.log(dupa);
+        return fetch(this.getRatingUrl(movieId), {
             method: 'post',
             dataType: 'json',
             data: {
@@ -75,6 +53,15 @@ export default class Stars extends React.Component {
                 'Cache-Control': 'no-cache'
             }
         })
+
+    }
+
+    reset() {
+        this.setTmpRating(this.state.rating);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setRating(nextProps.defaultValue);
     }
 
     render() {
@@ -84,7 +71,7 @@ export default class Stars extends React.Component {
                 <span
                     className={i <= this.state.tmpRating ? 'rating-on' : null}
                     key={i}
-                    onClick={!this.props.readonly && this.setRating.bind(this, i)}
+                    onClick={!this.props.readonly && this.setRating.bind(this, i, this.props.movieId)}
                     onMouseOver={!this.props.readonly && this.setTmpRating.bind(this, i)}>
                     &#9734;
                 </span>

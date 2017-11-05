@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Stars from './StarsComponent';
 import RatingButtonComponent from './RatingButtonComponent';
-import TableHeaderComponent from './TableHeaderComponent';
+// import TableHeaderComponent from './TableHeaderComponent';
 // import AddMovieComponent from './AddMovieComponent';
 
 
@@ -23,8 +23,8 @@ import ActionAndroid from 'material-ui/svg-icons/action/delete'
 // get avarage onClick
 
 export default class MoviesList extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             movies: [],
             ratings: [],
@@ -63,9 +63,7 @@ export default class MoviesList extends React.Component {
 
     //Material UI - handlers
     handleTouchTap(event) {
-        // This prevents ghost click.
-        event.preventDefault();
-
+       event.preventDefault();
         this.setState({
             open: true,
             anchorEl: event.currentTarget
@@ -143,7 +141,7 @@ export default class MoviesList extends React.Component {
                 <td>
                     <RatingButtonComponent movieId={el.id}/>
                 </td>
-                <td><Stars/></td>
+                <td><Stars movieId={el.id}/></td>
                 <td>
                     <figure><img src={el.poster} style={styles.poster}/></figure>
                 </td>
@@ -154,12 +152,8 @@ export default class MoviesList extends React.Component {
     render() {
         return (
             <div className="container">
-
                 {/*<AddMovieComponent movies={this.state.movies}/>*/}
-
                 <table className="table table-responsive table-hover table-sm">
-                    <TableHeaderComponent/>
-
                     <thead className="thead-inverse">
                     <tr>
                         <th>ID
@@ -174,7 +168,6 @@ export default class MoviesList extends React.Component {
                                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
                                     onRequestClose={this.handleRequestClose.bind(this)}
                                     animation={PopoverAnimationVertical}>
-                                    <Menu/>
                                     <svg
                                         onClick={() => this.ascendingSortBy('id')}
                                         className="rotate180"
@@ -192,7 +185,7 @@ export default class MoviesList extends React.Component {
                                         <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
                                               fill="red"/>
                                     </svg>
-                                    <Menu/>
+
                                 </Popover>
                             </div>
                         </th>
@@ -208,27 +201,24 @@ export default class MoviesList extends React.Component {
                                     targetOrigin={{horizontal: 'left', vertical: 'top'}}
                                     onRequestClose={this.handleRequestClose.bind(this)}
                                     animation={PopoverAnimationVertical}>
-                                    <Menu>
+                                    <svg onClick={() => this.ascendingSortBy('title')}
+                                         className="rotate180"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         width="20"
+                                         height="20"
+                                         viewBox="0 0 24 24">
+                                        <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
+                                              fill="black"/>
+                                    </svg>
 
-                                        <svg onClick={() => this.ascendingSortBy('title')}
-                                             className="rotate180"
-                                             xmlns="http://www.w3.org/2000/svg"
-                                             width="20"
-                                             height="20"
-                                             viewBox="0 0 24 24">
-                                            <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
-                                                  fill="black"/>
-                                        </svg>
-
-                                        <svg onClick={() => this.desendingSortBy('title')}
-                                             xmlns="http://www.w3.org/2000/svg" width="20"
-                                             height="20"
-                                             viewBox="0 0 24 24">
-                                            <path
-                                                d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
-                                                fill="red"/>
-                                        </svg>
-                                    </Menu>
+                                    <svg onClick={() => this.desendingSortBy('title')}
+                                         xmlns="http://www.w3.org/2000/svg" width="20"
+                                         height="20"
+                                         viewBox="0 0 24 24">
+                                        <path
+                                            d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
+                                            fill="red"/>
+                                    </svg>
                                 </Popover>
                             </div>
                         </th>
