@@ -43,8 +43,15 @@ export default class Stars extends React.Component {
             body: JSON.stringify({
                 rating
             })
-
+        }).then( (response) => {
+            return response.json();
         })
+            .then( (result) => {
+                console.log(result);
+            })
+            .catch((error) => {
+                console.log('Request failed', error);
+            });
     }
 
     reset() {
