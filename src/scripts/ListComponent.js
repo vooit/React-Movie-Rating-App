@@ -1,3 +1,7 @@
+/**
+ * Created by Wojtek on 2017-10-19.
+ */
+
 import React from 'react';
 import classNames from 'classnames';
 import Stars from './StarsComponent';
@@ -16,11 +20,6 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 
 import ActionAndroid from 'material-ui/svg-icons/action/delete'
-
-// TO DO
-// get movie id na rating -> POST
-// fetch POST
-// get avarage onClick
 
 export default class MoviesList extends React.Component {
     constructor(props) {
@@ -151,7 +150,7 @@ export default class MoviesList extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div>
                 {/*<AddMovieComponent movies={this.state.movies}/>*/}
                 <table className="table table-responsive table-hover table-sm">
                     <thead className="thead-inverse">
@@ -224,7 +223,7 @@ export default class MoviesList extends React.Component {
                         </th>
                         <th>ACTION</th>
                         <th>GET RATING</th>
-                        <th>GIVE RATING</th>
+                        <th>RATE MOVIE</th>
                         <th>POSTER</th>
                     </tr>
                     </thead>

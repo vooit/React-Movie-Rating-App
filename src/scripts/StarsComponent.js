@@ -1,5 +1,5 @@
 /**
- * Created by Wojtek on 2017-10-24.
+ * Created by Wojtek on 2017-10-22.
  */
 import classNames from 'classnames';
 import React from 'react';
