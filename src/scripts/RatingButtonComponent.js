@@ -44,11 +44,9 @@ export default class RatingButtonComponent extends React.Component {
         }, 0);
         let digitRating = (avarageRating / ratings.length).toFixed(0);
         //     className={i <= this.state.tmpRating ? 'rating-on' : null}
-
         if (isNaN(digitRating)) {
-            return 0;
+            return '';
         }
-
         return <span className={classNames({
             'red': false,
             'green': true,
