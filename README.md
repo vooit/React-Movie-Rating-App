@@ -2,7 +2,9 @@
 react app , fetch GET/POST, material design, 
 
 
-npm install --> 
+npm install --> npm start
 
-dev: npm start 
+
+
+dev: webpack -d
 prod: webpack -p
