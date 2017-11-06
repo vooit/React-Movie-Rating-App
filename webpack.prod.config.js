@@ -18,8 +18,11 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                use: ['babel-loader',],
-                exclude: /node_modules/
+                loader: 'babel-loader',
+                query:
+                    {
+                        presets:['es2015', 'react']
+                    }
             },
             {
                 test: /\.scss$/,
@@ -32,7 +35,6 @@ module.exports = {
                                 loader: "sass-loader"
                             }
                         ],
-                        // use style-loader in development
                         fallback: "style-loader"
                     }
                 )
