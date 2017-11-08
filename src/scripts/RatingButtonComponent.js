@@ -47,10 +47,11 @@ export default class RatingButtonComponent extends React.Component {
         if (isNaN(digitRating)) {
             return '';
         }
+
         return <span className={classNames({
             'red': false,
             'green': true,
-        })}>{digitRating}</span>
+        })}>{digitRating} </span>
     }
 
     render() {

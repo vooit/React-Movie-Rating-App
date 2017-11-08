@@ -64,6 +64,7 @@ export default class Stars extends React.Component {
 
     render() {
         const stars = [];
+
         for (let i = 1; i <= this.props.max; i++) {
             stars.push(
                 <span

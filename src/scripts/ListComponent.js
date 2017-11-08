@@ -14,7 +14,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-
 import ActionAndroid from 'material-ui/svg-icons/action/delete'
 
 export default class MoviesList extends React.Component {
@@ -27,7 +26,7 @@ export default class MoviesList extends React.Component {
         };
         this.compareBy.bind(this);
         this.ascendingSortBy.bind(this);
-    }
+     }
 
     getMovies() {
         return fetch('https://movie-ranking.herokuapp.com/movies.json', {
@@ -231,4 +230,3 @@ export default class MoviesList extends React.Component {
         )
     }
 }
-
