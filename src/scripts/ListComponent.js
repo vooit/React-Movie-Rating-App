@@ -4,6 +4,7 @@
 
 import React from 'react';
 import classNames from 'classnames';
+import AddMovieComponent from './AddMovieComponent'
 import Stars from './StarsComponent';
 import RatingButtonComponent from './RatingButtonComponent';
 
@@ -12,9 +13,10 @@ import FlatButton from 'material-ui/FlatButton';
 //Material UI Dropdown
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import ActionAndroid from 'material-ui/svg-icons/action/delete'
+// import Menu from 'material-ui/Menu';
+// import MenuItem from 'material-ui/MenuItem';
+import ActionAndroid from 'material-ui/svg-icons/action/delete';
+import MDSpinner from 'react-md-spinner';
 
 export default class MoviesList extends React.Component {
     constructor(props) {
@@ -144,9 +146,15 @@ export default class MoviesList extends React.Component {
     }
 
     render() {
+
+        if (!this.state.movies.length){
+            return <MDSpinner className="spinner" size={100}/>
+        }
+
+
         return (
-            <div>
-                {/*<AddMovieComponent movies={this.state.movies}/>*/}
+            <div className="list-wrapper">
+                <AddMovieComponent movies={this.state.movies}/>
                 <table className="table table-responsive table-hover table-sm">
                     <thead className="thead-inverse">
                     <tr>

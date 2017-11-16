@@ -67,8 +67,7 @@ export default class Stars extends React.Component {
 
         for (let i = 1; i <= this.props.max; i++) {
             stars.push(
-                <span
-                    className={i <= this.state.tmpRating ? 'rating-on' : null}
+                <span className={i <= this.state.tmpRating ? 'rating-on' : null}
                     key={i}
                     onClick={!this.props.readonly && this.setRating.bind(this, i, this.props.movieId)}
                     onMouseOver={!this.props.readonly && this.setTmpRating.bind(this, i)}>

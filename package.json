@@ -37,7 +37,8 @@
     "webpack-dev-server": "2.4.5"
   },
   "dependencies": {
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.5.10",
+    "react-md-spinner": "^0.1.0"
   },
   "peerDependencies": {
     "react": "^15.5.4"
