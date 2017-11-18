@@ -16,13 +16,18 @@ export default class AddMovieComponent extends React.Component {
         };
 
         console.log(newMovie.title);
+        console.log(newMovie);
         console.log(movies);
+        const updateMovies = [this.state.movies, ...newMovie]
         this.addForm.reset();
+        this.setState = {
+            movies:updateMovies
+        }
     }
 
-  refreshList(e) {
-    e.preventDefault();
-  }
+  // refreshList(e) {
+  //   e.preventDefault();
+  // }
 
   render() {
     return (
@@ -33,13 +38,13 @@ export default class AddMovieComponent extends React.Component {
           <div className="form-group">
               <label className="sr-only" htmlFor="newItemInput">Add new movie</label>
 
-              <FloatingActionButton type="button"
-                                    onClick={this.refreshList.bind(this)}
-                                    className="translate-right"
-                                    mini={true}
-                                    icon={<ActionAndroid color={fullWhite}/>}>
-                  <ContentRefresh />
-              </FloatingActionButton>
+              {/*<FloatingActionButton type="button"*/}
+                                    {/*onClick={this.refreshList.bind(this)}*/}
+                                    {/*className="translate-right"*/}
+                                    {/*mini={true}*/}
+                                    {/*icon={<ActionAndroid color={fullWhite}/>}>*/}
+                  {/*<ContentRefresh />*/}
+              {/*</FloatingActionButton>*/}
               <input ref={(input) => {
                   this.newItem = input
               }}

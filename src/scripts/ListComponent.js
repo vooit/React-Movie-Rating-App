@@ -13,10 +13,14 @@ import FlatButton from 'material-ui/FlatButton';
 //Material UI Dropdown
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
-// import Menu from 'material-ui/Menu';
-// import MenuItem from 'material-ui/MenuItem';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
 import MDSpinner from 'react-md-spinner';
+
+//
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentRefresh from 'material-ui/svg-icons/content/undo'
+import {fullWhite} from 'material-ui/styles/colors'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 export default class MoviesList extends React.Component {
     constructor(props) {
@@ -56,6 +60,15 @@ export default class MoviesList extends React.Component {
                 console.log(err);
             })
     }
+
+
+
+
+
+
+
+
+
 
     //Material UI - handlers
     handleTouchTap(event) {
@@ -145,6 +158,32 @@ export default class MoviesList extends React.Component {
         )
     }
 
+
+    //ADD MOVIE COMPONENT
+
+    addMovie(e) {
+        e.preventDefault();
+        const {movies} = this.state;
+        const newMovie = {
+            id: '1',
+            title: this.newItem.value,
+            poster: ''
+        };
+
+        // console.log(newMovie.title);
+        // console.log(newMovie);
+        const updateMovies = [...this.state.movies, newMovie];
+        this.addForm.reset();
+        this.setState({
+            movies:updateMovies
+            
+        })
+        console.log(this.state.movies);
+        console.log(updateMovies);
+
+    }
+
+
     render() {
 
         if (!this.state.movies.length){
@@ -154,7 +193,32 @@ export default class MoviesList extends React.Component {
 
         return (
             <div className="list-wrapper">
-                <AddMovieComponent movies={this.state.movies}/>
+                {/*<AddMovieComponent />*/}
+                {/**/}
+                <form className="form-inline form-center"
+                      onSubmit={(e) => this.addMovie(e)}
+                      ref={input => this.addForm = input}>
+
+                    <div className="form-group">
+                        <label className="sr-only" htmlFor="newItemInput">Add new movie</label>
+
+                         <input ref={(input) => {
+                            this.newItem = input
+                        }}
+                               type="text" placeholder="enter movie"
+                               className="form-control form-center"
+                               id="newItemInput"/>
+                        <FloatingActionButton type="submit"
+                                              className="translate-left"
+                                              mini={true}
+                                              icon={<ActionAndroid color={fullWhite}/>}>
+                            <ContentAdd />
+                        </FloatingActionButton>
+                    </div>
+
+                </form>
+
+
                 <table className="table table-responsive table-hover table-sm">
                     <thead className="thead-inverse">
                     <tr>
