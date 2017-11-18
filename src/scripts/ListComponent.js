@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import AddMovieComponent from './AddMovieComponent'
 import Stars from './StarsComponent';
 import RatingButtonComponent from './RatingButtonComponent';
@@ -16,7 +16,7 @@ import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
 import MDSpinner from 'react-md-spinner';
 
-//
+// ADD MOVIE COMPONENT
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentRefresh from 'material-ui/svg-icons/content/undo'
 import {fullWhite} from 'material-ui/styles/colors'
@@ -28,11 +28,12 @@ export default class MoviesList extends React.Component {
         this.state = {
             movies: [],
             ratings: [],
-            open: false
+            open: false,
+            message: ''
         };
         this.compareBy.bind(this);
         this.ascendingSortBy.bind(this);
-     }
+    }
 
     getMovies() {
         return fetch('https://movie-ranking.herokuapp.com/movies.json', {
@@ -61,18 +62,9 @@ export default class MoviesList extends React.Component {
             })
     }
 
-
-
-
-
-
-
-
-
-
     //Material UI - handlers
     handleTouchTap(event) {
-       event.preventDefault();
+        event.preventDefault();
         this.setState({
             open: true,
             anchorEl: event.currentTarget
@@ -160,33 +152,37 @@ export default class MoviesList extends React.Component {
 
 
     //ADD MOVIE COMPONENT
-
     addMovie(e) {
         e.preventDefault();
         const {movies} = this.state;
         const newMovie = {
-            id: '1',
-            title: this.newItem.value,
-            poster: ''
+            // id: '1',
+            title: this.newItem.value
+            // poster: ''
         };
+        const isOnTheList = movies.includes(newMovie.title);
 
-        // console.log(newMovie.title);
+        if (isOnTheList) {
+            console.log('zajete');
+        } else if (newMovie !== '') {
+            console.log('puste');
+        }
+
+
+        console.log(newMovie.title);
         // console.log(newMovie);
         const updateMovies = [...this.state.movies, newMovie];
         this.addForm.reset();
         this.setState({
-            movies:updateMovies
-            
+            movies: updateMovies
         })
-        console.log(this.state.movies);
-        console.log(updateMovies);
-
     }
 
 
     render() {
+        const {movies, message} = this.state;
 
-        if (!this.state.movies.length){
+        if (!this.state.movies.length) {
             return <MDSpinner className="spinner" size={100}/>
         }
 
@@ -194,7 +190,7 @@ export default class MoviesList extends React.Component {
         return (
             <div className="list-wrapper">
                 {/*<AddMovieComponent />*/}
-                {/**/}
+
                 <form className="form-inline form-center"
                       onSubmit={(e) => this.addMovie(e)}
                       ref={input => this.addForm = input}>
@@ -202,15 +198,11 @@ export default class MoviesList extends React.Component {
                     <div className="form-group">
                         <label className="sr-only" htmlFor="newItemInput">Add new movie</label>
 
-                         <input ref={(input) => {
+                        <input ref={(input) => {
                             this.newItem = input
-                        }}
-                               type="text" placeholder="enter movie"
-                               className="form-control form-center"
-                               id="newItemInput"/>
-                        <FloatingActionButton type="submit"
-                                              className="translate-left"
-                                              mini={true}
+                        }} type="text" placeholder="enter movie"
+                               className="form-control form-center" id="newItemInput"/>
+                        <FloatingActionButton type="submit" className="translate-left" mini={true}
                                               icon={<ActionAndroid color={fullWhite}/>}>
                             <ContentAdd />
                         </FloatingActionButton>
@@ -220,6 +212,10 @@ export default class MoviesList extends React.Component {
 
 
                 <table className="table table-responsive table-hover table-sm">
+                    {
+                        message !== '' && <p className="message text-danger">{message}</p>
+                    }
+
                     <thead className="thead-inverse">
                     <tr>
                         <th>ID
