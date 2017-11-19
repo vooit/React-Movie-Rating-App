@@ -160,13 +160,13 @@ export default class MoviesList extends React.Component {
             title: this.newItem.value
             // poster: ''
         };
-        const isOnTheList = movies.includes(newMovie.title);
-
-        if (isOnTheList) {
-            console.log('zajete');
-        } else if (newMovie !== '') {
-            console.log('puste');
-        }
+        // const isOnTheList = movies.title.includes(newMovie.title);
+        //
+        // if (isOnTheList) {
+        //     console.log('zajete');
+        // } else if (newMovie !== '') {
+        //     console.log('puste');
+        // }
 
 
         console.log(newMovie.title);
@@ -212,9 +212,9 @@ export default class MoviesList extends React.Component {
 
 
                 <table className="table table-responsive table-hover table-sm">
-                    {
-                        message !== '' && <p className="message text-danger">{message}</p>
-                    }
+                    {/*{*/}
+                        {/*message !== '' && <p className="message text-danger">{message}</p>*/}
+                    {/*}*/}
 
                     <thead className="thead-inverse">
                     <tr>

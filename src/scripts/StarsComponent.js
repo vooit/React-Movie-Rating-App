@@ -4,43 +4,42 @@
 import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Popop from './PopupComponent';
 //Material UI
-import Paper from 'material-ui/Paper';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/remove';
+// import Paper from 'material-ui/Paper';
+// import FloatingActionButton from 'material-ui/FloatingActionButton';
+// import ContentAdd from 'material-ui/svg-icons/content/remove';
 
-class Popup extends React.Component {
-    render() {
-        const styles = {
-            textCenter: {
-                fontSize: '1.4rem',
-                textAlign: 'center',
-                fontWeight: '200',
-                color: 'white'
-            },
-            buttonPos: {
-                position: 'absolute',
-                top: '5px',
-                right: '5px'
-            }
-        };
-
-        return (
-            <Paper zDepth={4}>
-                <div className='popup'>
-                    <div className='popup_inner'>
-                        <h1 style={styles.textCenter}>You 've rated {this.props.name} for {this.props.text}</h1>
-                        <FloatingActionButton style={styles.buttonPos} secondary={true} mini={true}
-                                              onClick={this.props.closePopup}>
-                            <ContentAdd />
-                        </FloatingActionButton>
-                    </div>
-                </div>
-            </Paper>
-        );
-    }
-}
+// class Popup extends React.Component {
+//     render() {
+//         const styles = {
+//             textCenter: {
+//                 fontSize: '1.4rem',
+//                 textAlign: 'center',
+//                 fontWeight: '200',
+//                 color: 'white'
+//             },
+//             buttonPos: {
+//                 position: 'absolute',
+//                 top: '5px',
+//                 right: '5px'
+//             }
+//         };
+//
+//         return (
+//             <Paper zDepth={4}>
+//                 <div className='popup'>
+//                     <div className='popup_inner'>
+//                         <h1 style={styles.textCenter}>You 've rated {this.props.name} for {this.props.text}</h1>
+//                         <FloatingActionButton style={styles.buttonPos} secondary={true} mini={true}
+//                                               onClick={this.props.closePopup}>
+//                             <ContentAdd />
+//                         </FloatingActionButton>
+//                     </div>
+//                 </div>
+//             </Paper>
+//         );
+//     }
+// }
 
 
 export default class Stars extends React.Component {
@@ -48,18 +47,17 @@ export default class Stars extends React.Component {
         super(props);
         this.state = {
             rating: props.defaultValue,
-            tmpRating: props.defaultValue,
-            showPopup: false
+            tmpRating: props.defaultValue
+            // showPopup: false
         }
     }
 
 
-    togglePopup() {
-        console.log('rating')
-        this.setState({
-            showPopup: !this.state.showPopup
-        });
-    }
+    // togglePopup() {
+    //     this.setState({
+    //         showPopup: !this.state.showPopup
+    //     });
+    // }
 
 
     getRatingUrl(id) {
@@ -117,7 +115,7 @@ export default class Stars extends React.Component {
             stars.push(
                 <span className={i <= this.state.tmpRating ? 'rating-on' : null}
                       key={i}
-                      onClick={!this.props.readonly && this.setRating.bind(this, i, this.props.movieId) && this.togglePopup.bind(this) }
+                      onClick={!this.props.readonly && this.setRating.bind(this, i, this.props.movieId)  }
                       onMouseOver={!this.props.readonly && this.setTmpRating.bind(this, i)}>
                     &#9734;
                 </span>
@@ -140,8 +138,8 @@ export default class Stars extends React.Component {
 
 
                 <br/>
-                {this.state.showPopup ?
-                    <Popup text='close' closePopup={this.togglePopup.bind(this)}/> : null}
+                {/*{this.state.showPopup ?*/}
+                    {/*<Popup text='close' closePopup={this.togglePopup.bind(this)}/> : null}*/}
             </div>
         )
     }
