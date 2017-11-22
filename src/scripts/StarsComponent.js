@@ -17,7 +17,6 @@ export default class Stars extends React.Component {
         }
     }
 
-
     getRatingUrl(id) {
         return `https://movie-ranking.herokuapp.com/movies/${id}/ratings`;
     }
@@ -27,14 +26,12 @@ export default class Stars extends React.Component {
         this.setState({tmpRating: rating});
     }
 
-
-    togglePopup(movieTitle) {
+    togglePopup(movieTitle, rating) {
         console.log(this.props.movieTitle);
         this.setState({
             showPopup: !this.state.showPopup
         });
     }
-
 
     setRating(rating, movieId) {
         this.setState({
@@ -61,14 +58,14 @@ export default class Stars extends React.Component {
         })
             .then((result) => {
                 console.log(result);
+                this.setState({
+                    showPopup: !this.state.showPopup
+                });
             })
             .catch((error) => {
                 console.log('Request failed', error);
             });
     }
-
-// && this.togglePopup.bind(this, this.props.movieTitle)
-
 
     reset() {
         this.setTmpRating(this.state.rating);
@@ -85,12 +82,14 @@ export default class Stars extends React.Component {
             stars.push(
                 <span className={i <= this.state.tmpRating ? 'rating-on' : null}
                       key={i}
-                      onClick={!this.props.readonly && this.setRating.bind(this, i, this.props.movieId) && this.togglePopup.bind(this, this.props.movieTitle) }
+                      onClick={!this.props.readonly && this.setRating.bind(this, i, this.props.movieId) }
                       onMouseOver={!this.props.readonly && this.setTmpRating.bind(this, i)}>
                     &#9734;
                 </span>
             );
         }
+
+        // && this.togglePopup.bind(this, this.props.movieTitle)
 
         return (
             <div>
@@ -105,10 +104,9 @@ export default class Stars extends React.Component {
                     }
                 </div>
 
-
                 <br/>
                 {this.state.showPopup ?
-                    <Popup textTitle={this.props.movieTitle} textRate='test'
+                    <Popup textTitle={this.props.movieTitle} textRate={this.state.rating}
                            closePopup={this.togglePopup.bind(this)}/> : null}
             </div>
         )
@@ -126,6 +124,6 @@ Stars.defaultProps = {
 };
 Popup.propTypes = {
     textTitle: PropTypes.string,
-    textRate: PropTypes.string,
+    textRate: PropTypes.number,
     closePopup: PropTypes.func
 };

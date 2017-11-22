@@ -4,7 +4,7 @@
 
 import React from 'react';
 // import classNames from 'classnames';
-import AddMovieComponent from './AddMovieComponent'
+// import AddMovieComponent from './AddMovieComponent'
 import Stars from './StarsComponent';
 import RatingButtonComponent from './RatingButtonComponent';
 
@@ -31,8 +31,6 @@ export default class MoviesList extends React.Component {
             open: false,
             message: ''
         };
-        this.compareBy.bind(this);
-        this.ascendingSortBy.bind(this);
     }
 
     getMovies() {
@@ -95,7 +93,7 @@ export default class MoviesList extends React.Component {
         };
     }
 
-    desendingSortBy(index) {
+    descendingSortBy(index) {
         let arrayCopy = [...this.state.movies];
         let sortedArray = arrayCopy.sort(this.compareBy(index));
         let reversedCopy = sortedArray.reverse();
@@ -156,7 +154,7 @@ export default class MoviesList extends React.Component {
         e.preventDefault();
         const {movies} = this.state;
         const newMovie = {
-            id: '1',
+            id: '22',
             title: this.newItem.value,
             poster: ''
         };
@@ -240,7 +238,7 @@ export default class MoviesList extends React.Component {
                                               fill="black"/>
                                     </svg>
 
-                                    <svg onClick={() => this.desendingSortBy('id')}
+                                    <svg onClick={() => this.descendingSortBy('id')}
                                          xmlns="http://www.w3.org/2000/svg" width="20"
                                          height="20"
                                          viewBox="0 0 20 20">
@@ -273,7 +271,7 @@ export default class MoviesList extends React.Component {
                                               fill="black"/>
                                     </svg>
 
-                                    <svg onClick={() => this.desendingSortBy('title')}
+                                    <svg onClick={() => this.descendingSortBy('title')}
                                          xmlns="http://www.w3.org/2000/svg" width="20"
                                          height="20"
                                          viewBox="0 0 24 24">

@@ -6,7 +6,11 @@ import {fullWhite} from 'material-ui/styles/colors'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
 export default class AddMovieComponent extends React.Component {
-   addMovie(e) {
+    constructor(props) {
+        super(props);
+    }
+
+    addMovie(e) {
         e.preventDefault();
         const {movies} = this.props;
         const newMovie = {
@@ -18,48 +22,43 @@ export default class AddMovieComponent extends React.Component {
         console.log(newMovie.title);
         console.log(newMovie);
         console.log(movies);
-        const updateMovies = [this.state.movies, ...newMovie]
+        const updateMovies = [this.state.movies, ...newMovie];
         this.addForm.reset();
         this.setState = {
-            movies:updateMovies
+            movies: updateMovies
         }
     }
 
-  // refreshList(e) {
-  //   e.preventDefault();
-  // }
+    render() {
+        return (
+            <form className="form-inline form-center"
+                  onSubmit={(e) => this.addMovie(e)}
+                  ref={input => this.addForm = input}>
 
-  render() {
-    return (
-      <form className="form-inline form-center"
-          onSubmit={(e) => this.addMovie(e)}
-          ref={input => this.addForm = input}>
+                <div className="form-group">
+                    <label className="sr-only" htmlFor="newItemInput">Add new movie</label>
 
-          <div className="form-group">
-              <label className="sr-only" htmlFor="newItemInput">Add new movie</label>
+                    {/*<FloatingActionButton type="button"*/}
+                    {/*className="translate-right"*/}
+                    {/*mini={true}*/}
+                    {/*icon={<ActionAndroid color={fullWhite}/>}>*/}
+                    {/*<ContentRefresh />*/}
+                    {/*</FloatingActionButton>*/}
+                    <input ref={(input) => {
+                        this.newItem = input
+                    }}
+                           type="text" placeholder="enter movie"
+                           className="form-control form-center"
+                           id="newItemInput"/>
+                    <FloatingActionButton type="submit"
+                                          className="translate-left"
+                                          mini={true}
+                                          icon={<ActionAndroid color={fullWhite}/>}>
+                        <ContentAdd />
+                    </FloatingActionButton>
+                </div>
 
-              {/*<FloatingActionButton type="button"*/}
-                                    {/*onClick={this.refreshList.bind(this)}*/}
-                                    {/*className="translate-right"*/}
-                                    {/*mini={true}*/}
-                                    {/*icon={<ActionAndroid color={fullWhite}/>}>*/}
-                  {/*<ContentRefresh />*/}
-              {/*</FloatingActionButton>*/}
-              <input ref={(input) => {
-                  this.newItem = input
-              }}
-                      type="text" placeholder="enter movie"
-                      className="form-control form-center"
-                      id="newItemInput"/>
-              <FloatingActionButton type="submit"
-                                    className="translate-left"
-                                    mini={true}
-                                    icon={<ActionAndroid color={fullWhite}/>}>
-                  <ContentAdd />
-              </FloatingActionButton>
-          </div>
-
-      </form>
-    )
-  }
+            </form>
+        )
+    }
 }
