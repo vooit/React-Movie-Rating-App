@@ -1,45 +1,10 @@
 /**
  * Created by Wojtek on 2017-10-22.
  */
-import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
-//Material UI
-// import Paper from 'material-ui/Paper';
-// import FloatingActionButton from 'material-ui/FloatingActionButton';
-// import ContentAdd from 'material-ui/svg-icons/content/remove';
-
-// class Popup extends React.Component {
-//     render() {
-//         const styles = {
-//             textCenter: {
-//                 fontSize: '1.4rem',
-//                 textAlign: 'center',
-//                 fontWeight: '200',
-//                 color: 'white'
-//             },
-//             buttonPos: {
-//                 position: 'absolute',
-//                 top: '5px',
-//                 right: '5px'
-//             }
-//         };
-//
-//         return (
-//             <Paper zDepth={4}>
-//                 <div className='popup'>
-//                     <div className='popup_inner'>
-//                         <h1 style={styles.textCenter}>You 've rated {this.props.name} for {this.props.text}</h1>
-//                         <FloatingActionButton style={styles.buttonPos} secondary={true} mini={true}
-//                                               onClick={this.props.closePopup}>
-//                             <ContentAdd />
-//                         </FloatingActionButton>
-//                     </div>
-//                 </div>
-//             </Paper>
-//         );
-//     }
-// }
+import classNames from 'classnames';
+import Popup from './PopupComponent';
 
 
 export default class Stars extends React.Component {
@@ -47,17 +12,10 @@ export default class Stars extends React.Component {
         super(props);
         this.state = {
             rating: props.defaultValue,
-            tmpRating: props.defaultValue
-            // showPopup: false
+            tmpRating: props.defaultValue,
+            showPopup: false
         }
     }
-
-
-    // togglePopup() {
-    //     this.setState({
-    //         showPopup: !this.state.showPopup
-    //     });
-    // }
 
 
     getRatingUrl(id) {
@@ -69,6 +27,15 @@ export default class Stars extends React.Component {
         this.setState({tmpRating: rating});
     }
 
+
+    togglePopup(movieTitle) {
+        console.log(this.props.movieTitle);
+        this.setState({
+            showPopup: !this.state.showPopup
+        });
+    }
+
+
     setRating(rating, movieId) {
         this.setState({
             tmpRating: rating,
@@ -78,7 +45,7 @@ export default class Stars extends React.Component {
             movie_id: this.props.movieId,
             rating: this.state.rating
         };
-        console.log(newRatingObject);
+        // console.log(newRatingObject);
         return fetch(this.getRatingUrl(movieId, rating), {
             method: 'post',
             dataType: 'json',
@@ -100,6 +67,9 @@ export default class Stars extends React.Component {
             });
     }
 
+// && this.togglePopup.bind(this, this.props.movieTitle)
+
+
     reset() {
         this.setTmpRating(this.state.rating);
     }
@@ -115,7 +85,7 @@ export default class Stars extends React.Component {
             stars.push(
                 <span className={i <= this.state.tmpRating ? 'rating-on' : null}
                       key={i}
-                      onClick={!this.props.readonly && this.setRating.bind(this, i, this.props.movieId)  }
+                      onClick={!this.props.readonly && this.setRating.bind(this, i, this.props.movieId) && this.togglePopup.bind(this, this.props.movieTitle) }
                       onMouseOver={!this.props.readonly && this.setTmpRating.bind(this, i)}>
                     &#9734;
                 </span>
@@ -127,8 +97,7 @@ export default class Stars extends React.Component {
                 <div className={classNames({
                     'rating': true,
                     'rating-readonly': this.props.readonly,
-                })}
-                     onMouseOut={this.reset.bind(this)}>{stars}
+                })} onMouseOut={this.reset.bind(this)}>{stars}
                     {this.props.readonly || !this.props.id ? null : <input
                         type="hidden"
                         id={this.props.id}
@@ -138,8 +107,9 @@ export default class Stars extends React.Component {
 
 
                 <br/>
-                {/*{this.state.showPopup ?*/}
-                    {/*<Popup text='close' closePopup={this.togglePopup.bind(this)}/> : null}*/}
+                {this.state.showPopup ?
+                    <Popup textTitle={this.props.movieTitle} textRate='test'
+                           closePopup={this.togglePopup.bind(this)}/> : null}
             </div>
         )
     }
@@ -153,4 +123,9 @@ Stars.propTypes = {
 Stars.defaultProps = {
     defaultValue: 0,
     max: 5,
+};
+Popup.propTypes = {
+    textTitle: PropTypes.string,
+    textRate: PropTypes.string,
+    closePopup: PropTypes.func
 };

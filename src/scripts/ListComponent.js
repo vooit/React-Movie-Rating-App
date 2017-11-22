@@ -142,7 +142,7 @@ export default class MoviesList extends React.Component {
                 <td>
                     <RatingButtonComponent movieId={el.id}/>
                 </td>
-                <td><Stars movieId={el.id}/></td>
+                <td><Stars movieId={el.id} movieTitle={el.title} /></td>
                 <td>
                     <figure><img src={el.poster} style={styles.poster}/></figure>
                 </td>
@@ -156,9 +156,9 @@ export default class MoviesList extends React.Component {
         e.preventDefault();
         const {movies} = this.state;
         const newMovie = {
-            // id: '1',
-            title: this.newItem.value
-            // poster: ''
+            id: '1',
+            title: this.newItem.value,
+            poster: ''
         };
         // const isOnTheList = movies.title.includes(newMovie.title);
         //
