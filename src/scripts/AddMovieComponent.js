@@ -26,7 +26,7 @@ const AddMovieComponent = (props) => {
             <FloatingActionButton
                 className="translate-right"
                 backgroundColor="#a4c639"
-                hoverColor="#8AA62F"
+                // hoverColor="#8AA62F"
                 onChange={props.onImageChange}
                 mini={true}
             >
@@ -49,7 +49,7 @@ const AddMovieComponent = (props) => {
 
         </form>
     )
-}
+};
 
 AddMovieComponent.propTypes = {
     title: PropTypes.string.isRequired,

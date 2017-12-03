@@ -159,36 +159,6 @@ export default class MoviesList extends React.Component {
         })
     }
 
-    onIdChange(event) {
-        this.setState({
-            newId: event.currentTarget.value
-        })
-    }
-
-    onFormSubmit(event) {
-        event.preventDefault();
-        const {
-            movies,
-            newTitle
-        } = this.state;
-        const maxId = Math.max(...movies.map(el => el.id));
-
-        movies.push({
-            id: maxId + 1,
-            title: newTitle,
-            poster: ''
-        });
-        // const newMovie = {
-        //     id: maxId + 1,
-        //     title: newTitle,
-        //     poster: ''
-        // };
-        // const updateMovies = [this.state.movies, ...newMovie];
-        this.setState({
-            movies
-        })
-    }
-
     onImageChange(event) {
         event.preventDefault();
 
@@ -202,25 +172,40 @@ export default class MoviesList extends React.Component {
             });
         };
 
-        reader.readAsDataURL(file)
+        reader.readAsDataURL(file);
+
     }
 
 
+
+    onFormSubmit(event) {
+        event.preventDefault();
+        const {
+            movies,
+            newTitle,
+            imagePreviewUrl
+        } = this.state;
+        const maxId = Math.max(...movies.map(el => el.id));
+
+        movies.push({
+            id: maxId + 1,
+            title: newTitle,
+            poster: imagePreviewUrl
+        });
+
+        this.setState({
+            movies
+        })
+    }
 
 
     render() {
         const {movies} = this.state;
 
-
-
         //LOADER
         if (!this.state.movies.length) {
             return <MDSpinner className="spinner" size={100}/>
         }
-        // if (!this.state.movies.length) {
-        //     return  <CircularProgress className="spinner" size={100} thickness={15} />
-        // }
-
 
         //IMAGE PREVIEW
         let {imagePreviewUrl} = this.state;
@@ -230,7 +215,6 @@ export default class MoviesList extends React.Component {
         } else {
             imagePreview = (<div className="form-center">Please select an Image for Preview</div>);
         }
-
 
         return (
             <div className="list-wrapper">
