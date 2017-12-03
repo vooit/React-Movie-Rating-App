@@ -2,6 +2,8 @@
  * Created by Wojtek on 2017-11-18.
  */
 import React from  'react';
+import PropTypes from 'prop-types';
+
 import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/remove';
@@ -40,4 +42,13 @@ class Popup extends React.Component {
         );
     }
 }
+
+
+Popup.propTypes = {
+    textTitle: PropTypes.string,
+    textRate: PropTypes.number,
+    closePopup: PropTypes.func
+};
+
+
 export default Popup;

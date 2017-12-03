@@ -14,9 +14,9 @@ export default class App extends React.Component {
         return (
             <MuiThemeProvider>
                 <div className="container">
-                    <LogoComponent/>
-                    <Paper zDepth={4}>
-                        <MoviesList/>
+                    <Paper zDepth={4} className="movies-list">
+                        <LogoComponent/>
+                        <MoviesList />
                     </Paper>
                 </div>
             </MuiThemeProvider>

@@ -122,8 +122,3 @@ Stars.defaultProps = {
     defaultValue: 0,
     max: 5,
 };
-Popup.propTypes = {
-    textTitle: PropTypes.string,
-    textRate: PropTypes.number,
-    closePopup: PropTypes.func
-};

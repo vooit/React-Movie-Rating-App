@@ -9,6 +9,11 @@ $material-blue: #00bcd4;
   font-family: 'Roboto', sans-serif !important;
 }
 
+body {
+  background-image: url("/src/img/wars.jpg");
+  background-size: cover;
+  min-height: 100vh;
+}
 :focus::-webkit-input-placeholder {
   opacity: 0;
   -webkit-transition: opacity 0.35s ease-in-out;
@@ -40,7 +45,9 @@ svg {
     transform: rotate(180deg) scale(0.7);
   }
 }
-
+.movies-list {
+  background-color: rgba(255, 255, 255, 0.8)!important;
+}
 #app {
 
   position: relative;

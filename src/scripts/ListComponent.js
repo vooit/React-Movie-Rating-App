@@ -1,11 +1,11 @@
 /**
  * Created by Wojtek on 2017-10-19.
  */
-
 import React from 'react';
 // import classNames from 'classnames';
-// import AddMovieComponent from './AddMovieComponent'
 import Stars from './StarsComponent';
+import AddMovieComponent from './AddMovieComponent';
+// import EventFilter from './FilterComponent';
 import RatingButtonComponent from './RatingButtonComponent';
 
 //Material UI Buttons
@@ -16,11 +16,6 @@ import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
 import MDSpinner from 'react-md-spinner';
 
-// ADD MOVIE COMPONENT
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentRefresh from 'material-ui/svg-icons/content/undo'
-import {fullWhite} from 'material-ui/styles/colors'
-import ContentAdd from 'material-ui/svg-icons/content/add'
 
 export default class MoviesList extends React.Component {
     constructor(props) {
@@ -29,7 +24,9 @@ export default class MoviesList extends React.Component {
             movies: [],
             ratings: [],
             open: false,
-            message: ''
+            newTitle: '',
+            newId: '',
+            newPoster: ''
         };
     }
 
@@ -140,7 +137,7 @@ export default class MoviesList extends React.Component {
                 <td>
                     <RatingButtonComponent movieId={el.id}/>
                 </td>
-                <td><Stars movieId={el.id} movieTitle={el.title} /></td>
+                <td><Stars movieId={el.id} movieTitle={el.title}/></td>
                 <td>
                     <figure><img src={el.poster} style={styles.poster}/></figure>
                 </td>
@@ -148,37 +145,56 @@ export default class MoviesList extends React.Component {
         )
     }
 
+    // onFilterChange(event) {
+    //     const value = event.currentTarget.value;
+    //
+    //     this.setState({
+    //         filter:value
+    //     })
+    // }
 
-    //ADD MOVIE COMPONENT
-    addMovie(e) {
-        e.preventDefault();
-        const {movies} = this.state;
-        const newMovie = {
-            id: '22',
-            title: this.newItem.value,
-            poster: ''
-        };
-        // const isOnTheList = movies.title.includes(newMovie.title);
-        //
-        // if (isOnTheList) {
-        //     console.log('zajete');
-        // } else if (newMovie !== '') {
-        //     console.log('puste');
-        // }
-
-
-        console.log(newMovie.title);
-        // console.log(newMovie);
-        const updateMovies = [...this.state.movies, newMovie];
-        this.addForm.reset();
+    onTitleChange(event) {
         this.setState({
-            movies: updateMovies
+            newTitle: event.currentTarget.value
+        })
+    }
+
+    onIdChange(event) {
+        this.setState({
+            newId: event.currentTarget.value
+        })
+    }
+
+    onFormSubmit(event) {
+        event.preventDefault();
+        const {
+            movies,
+            newTitle
+        } = this.state;
+        const maxId = Math.max(...movies.map(el => el.id))
+
+        movies.push({
+            id: maxId + 1,
+            title: newTitle,
+            poster: ''
+        })
+
+        // const newMovie = {
+        //     id: maxId + 1,
+        //     title: newTitle,
+        //     poster: ''
+        // };
+        // const updateMovies = [this.state.movies, ...newMovie];
+
+
+        this.setState({
+            movies
         })
     }
 
 
     render() {
-        const {movies, message} = this.state;
+        const {movies} = this.state;
 
         if (!this.state.movies.length) {
             return <MDSpinner className="spinner" size={100}/>
@@ -187,32 +203,20 @@ export default class MoviesList extends React.Component {
 
         return (
             <div className="list-wrapper">
-                {/*<AddMovieComponent />*/}
 
-                <form className="form-inline form-center"
-                      onSubmit={(e) => this.addMovie(e)}
-                      ref={input => this.addForm = input}>
+                {/*<EventFilter*/}
+                {/*filter={this.state.filter}*/}
+                {/*onFilterChange={this.onFilterChange.bind(this)}/>*/}
 
-                    <div className="form-group">
-                        <label className="sr-only" htmlFor="newItemInput">Add new movie</label>
+                <AddMovieComponent
+                    title={this.state.newTitle}
+                    id={this.state.newId}
 
-                        <input ref={(input) => {
-                            this.newItem = input
-                        }} type="text" placeholder="enter movie"
-                               className="form-control form-center" id="newItemInput"/>
-                        <FloatingActionButton type="submit" className="translate-left" mini={true}
-                                              icon={<ActionAndroid color={fullWhite}/>}>
-                            <ContentAdd />
-                        </FloatingActionButton>
-                    </div>
-
-                </form>
-
-
+                    onTitleChange={this.onTitleChange.bind(this)}
+                    onFormSubmit={this.onFormSubmit.bind(this)}
+                    onIdChange={this.onIdChange.bind(this)}
+                />
                 <table className="table table-responsive table-hover table-sm">
-                    {/*{*/}
-                        {/*message !== '' && <p className="message text-danger">{message}</p>*/}
-                    {/*}*/}
 
                     <thead className="thead-inverse">
                     <tr>
