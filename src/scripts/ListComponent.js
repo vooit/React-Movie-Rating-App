@@ -2,7 +2,6 @@
  * Created by Wojtek on 2017-10-19.
  */
 import React from 'react';
-// import classNames from 'classnames';
 import Stars from './StarsComponent';
 import AddMovieComponent from './AddMovieComponent';
 // import EventFilter from './FilterComponent';
@@ -14,6 +13,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
+//Loader
 import MDSpinner from 'react-md-spinner';
 
 
@@ -25,8 +25,8 @@ export default class MoviesList extends React.Component {
             ratings: [],
             open: false,
             newTitle: '',
-            newId: '',
-            newPoster: ''
+            newPoster: '',
+            imagePreviewUrl: ''
         };
     }
 
@@ -171,33 +171,64 @@ export default class MoviesList extends React.Component {
             movies,
             newTitle
         } = this.state;
-        const maxId = Math.max(...movies.map(el => el.id))
+        const maxId = Math.max(...movies.map(el => el.id));
 
         movies.push({
             id: maxId + 1,
             title: newTitle,
             poster: ''
-        })
-
+        });
         // const newMovie = {
         //     id: maxId + 1,
         //     title: newTitle,
         //     poster: ''
         // };
         // const updateMovies = [this.state.movies, ...newMovie];
-
-
         this.setState({
             movies
         })
     }
 
+    onImageChange(event) {
+        event.preventDefault();
+
+        let reader = new FileReader();
+        let file = event.target.files[0];
+
+        reader.onloadend = () => {
+            this.setState({
+                newPoster: file,
+                imagePreviewUrl: reader.result
+            });
+        };
+
+        reader.readAsDataURL(file)
+    }
+
+
+
 
     render() {
         const {movies} = this.state;
 
+
+
+        //LOADER
         if (!this.state.movies.length) {
             return <MDSpinner className="spinner" size={100}/>
+        }
+        // if (!this.state.movies.length) {
+        //     return  <CircularProgress className="spinner" size={100} thickness={15} />
+        // }
+
+
+        //IMAGE PREVIEW
+        let {imagePreviewUrl} = this.state;
+        let imagePreview = null;
+        if (imagePreviewUrl) {
+            imagePreview = (<img src={imagePreviewUrl} />);
+        } else {
+            imagePreview = (<div className="form-center">Please select an Image for Preview</div>);
         }
 
 
@@ -210,12 +241,14 @@ export default class MoviesList extends React.Component {
 
                 <AddMovieComponent
                     title={this.state.newTitle}
-                    id={this.state.newId}
-
-                    onTitleChange={this.onTitleChange.bind(this)}
+                     onTitleChange={this.onTitleChange.bind(this)}
                     onFormSubmit={this.onFormSubmit.bind(this)}
-                    onIdChange={this.onIdChange.bind(this)}
+                    onImageChange={this.onImageChange.bind(this)}
                 />
+                <div className="img-preview">
+                    {imagePreview}
+                </div>
+
                 <table className="table table-responsive table-hover table-sm">
 
                     <thead className="thead-inverse">

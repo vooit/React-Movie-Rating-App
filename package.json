@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "prop-types": "^15.5.10",
+    "material-ui": "^0.19.4",
     "react-md-spinner": "^0.1.0"
   },
   "peerDependencies": {
