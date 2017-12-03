@@ -22,7 +22,9 @@ const AddMovieComponent = (props) => {
     };
 
     return (
-        <form className="form-inline form-center" onSubmit={props.onFormSubmit}>
+        <form className="form-inline form-center"
+              // ref={input => this.addForm = input}
+              onSubmit={props.onFormSubmit}>
             <FloatingActionButton
                 className="translate-right"
                 backgroundColor="#a4c639"

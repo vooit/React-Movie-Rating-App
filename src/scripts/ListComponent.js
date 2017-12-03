@@ -171,11 +171,8 @@ export default class MoviesList extends React.Component {
                 imagePreviewUrl: reader.result
             });
         };
-
         reader.readAsDataURL(file);
-
     }
-
 
 
     onFormSubmit(event) {
@@ -186,16 +183,20 @@ export default class MoviesList extends React.Component {
             imagePreviewUrl
         } = this.state;
         const maxId = Math.max(...movies.map(el => el.id));
-
-        movies.push({
+      
+        const newMovie = {
             id: maxId + 1,
             title: newTitle,
             poster: imagePreviewUrl
+        };
+        const updateMovies = [...this.state.movies, newMovie];
+        this.setState({
+            movies: updateMovies,
+            imagePreviewUrl: '',
+            newTitle:''
         });
 
-        this.setState({
-            movies
-        })
+        // this.addForm.reset();
     }
 
 
@@ -203,15 +204,15 @@ export default class MoviesList extends React.Component {
         const {movies} = this.state;
 
         //LOADER
-        if (!this.state.movies.length) {
+        if (!movies.length) {
             return <MDSpinner className="spinner" size={100}/>
         }
 
-        //IMAGE PREVIEW
+        //IMAGE PREVIEW//
         let {imagePreviewUrl} = this.state;
         let imagePreview = null;
         if (imagePreviewUrl) {
-            imagePreview = (<img src={imagePreviewUrl} />);
+            imagePreview = (<img src={imagePreviewUrl}/>);
         } else {
             imagePreview = (<div className="form-center">Please select an Image for Preview</div>);
         }
@@ -224,8 +225,9 @@ export default class MoviesList extends React.Component {
                 {/*onFilterChange={this.onFilterChange.bind(this)}/>*/}
 
                 <AddMovieComponent
+
                     title={this.state.newTitle}
-                     onTitleChange={this.onTitleChange.bind(this)}
+                    onTitleChange={this.onTitleChange.bind(this)}
                     onFormSubmit={this.onFormSubmit.bind(this)}
                     onImageChange={this.onImageChange.bind(this)}
                 />
