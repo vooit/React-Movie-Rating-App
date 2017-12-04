@@ -2,10 +2,11 @@
  * Created by Wojtek on 2017-10-19.
  */
 import React from 'react';
-import Stars from './StarsComponent';
+// import Stars from './StarsComponent';
 import AddMovieComponent from './AddMovieComponent';
 // import EventFilter from './FilterComponent';
 import RatingButtonComponent from './RatingButtonComponent';
+import LoaderWars from './LoaderComponent';
 
 //Material UI Buttons
 import FlatButton from 'material-ui/FlatButton';
@@ -14,7 +15,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
 //Loader
-import MDSpinner from 'react-md-spinner';
+// import MDSpinner from 'react-md-spinner';
 
 
 export default class MoviesList extends React.Component {
@@ -183,13 +184,17 @@ export default class MoviesList extends React.Component {
             imagePreviewUrl
         } = this.state;
         const maxId = Math.max(...movies.map(el => el.id));
-      
+        // movies.push({
+        //     id: maxId + 1,
+        //     title: newTitle,
+        //     poster: imagePreviewUrl
+        // });
         const newMovie = {
             id: maxId + 1,
             title: newTitle,
             poster: imagePreviewUrl
         };
-        const updateMovies = [...this.state.movies, newMovie];
+        const updateMovies = [...movies, newMovie];
         this.setState({
             movies: updateMovies,
             imagePreviewUrl: '',
@@ -205,7 +210,8 @@ export default class MoviesList extends React.Component {
 
         //LOADER
         if (!movies.length) {
-            return <MDSpinner className="spinner" size={100}/>
+            // return <MDSpinner className="spinner" size={100}/>
+            return <LoaderWars />
         }
 
         //IMAGE PREVIEW//

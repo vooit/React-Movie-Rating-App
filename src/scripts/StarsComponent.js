@@ -89,8 +89,6 @@ export default class Stars extends React.Component {
             );
         }
 
-        // && this.togglePopup.bind(this, this.props.movieTitle)
-
         return (
             <div>
                 <div className={classNames({
