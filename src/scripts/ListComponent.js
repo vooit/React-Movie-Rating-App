@@ -2,21 +2,15 @@
  * Created by Wojtek on 2017-10-19.
  */
 import React from 'react';
-// import Stars from './StarsComponent';
-import AddMovieComponent from './AddMovieComponent';
-// import EventFilter from './FilterComponent';
-import RatingButtonComponent from './RatingButtonComponent';
 import LoaderWars from './LoaderComponent';
-
+import AddMovieComponent from './AddMovieComponent';
+import Stars from './StarsComponent';
+import RatingButtonComponent from './RatingButtonComponent';
+import SortButton from './SortButtonComponent';
+// import EventFilter from './FilterComponent';
 //Material UI Buttons
 import FlatButton from 'material-ui/FlatButton';
-//Material UI Dropdown
-import RaisedButton from 'material-ui/RaisedButton';
-import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
-//Loader
-// import MDSpinner from 'react-md-spinner';
-
 
 export default class MoviesList extends React.Component {
     constructor(props) {
@@ -24,7 +18,6 @@ export default class MoviesList extends React.Component {
         this.state = {
             movies: [],
             ratings: [],
-            open: false,
             newTitle: '',
             newPoster: '',
             imagePreviewUrl: ''
@@ -58,21 +51,6 @@ export default class MoviesList extends React.Component {
             })
     }
 
-    //Material UI - handlers
-    handleTouchTap(event) {
-        event.preventDefault();
-        this.setState({
-            open: true,
-            anchorEl: event.currentTarget
-        });
-    };
-
-    handleRequestClose() {
-        this.setState({
-            open: false
-        });
-    };
-
     //--------------------------//
     onDeleteClick(movieId, e) {
         e.preventDefault();
@@ -81,7 +59,6 @@ export default class MoviesList extends React.Component {
             movies: filterMovies
         })
     }
-
     //SORTING
     compareBy(index) {
         return (a, b) => {
@@ -145,7 +122,6 @@ export default class MoviesList extends React.Component {
             </tr>
         )
     }
-
     // onFilterChange(event) {
     //     const value = event.currentTarget.value;
     //
@@ -153,7 +129,6 @@ export default class MoviesList extends React.Component {
     //         filter:value
     //     })
     // }
-
     onTitleChange(event) {
         this.setState({
             newTitle: event.currentTarget.value
@@ -175,7 +150,6 @@ export default class MoviesList extends React.Component {
         reader.readAsDataURL(file);
     }
 
-
     onFormSubmit(event) {
         event.preventDefault();
         const {
@@ -184,11 +158,7 @@ export default class MoviesList extends React.Component {
             imagePreviewUrl
         } = this.state;
         const maxId = Math.max(...movies.map(el => el.id));
-        // movies.push({
-        //     id: maxId + 1,
-        //     title: newTitle,
-        //     poster: imagePreviewUrl
-        // });
+
         const newMovie = {
             id: maxId + 1,
             title: newTitle,
@@ -198,22 +168,17 @@ export default class MoviesList extends React.Component {
         this.setState({
             movies: updateMovies,
             imagePreviewUrl: '',
-            newTitle:''
+            newTitle: ''
         });
-
-        // this.addForm.reset();
-    }
+    };
 
 
     render() {
         const {movies} = this.state;
-
         //LOADER
         if (!movies.length) {
-            // return <MDSpinner className="spinner" size={100}/>
             return <LoaderWars />
         }
-
         //IMAGE PREVIEW//
         let {imagePreviewUrl} = this.state;
         let imagePreview = null;
@@ -225,13 +190,11 @@ export default class MoviesList extends React.Component {
 
         return (
             <div className="list-wrapper">
-
                 {/*<EventFilter*/}
                 {/*filter={this.state.filter}*/}
                 {/*onFilterChange={this.onFilterChange.bind(this)}/>*/}
 
                 <AddMovieComponent
-
                     title={this.state.newTitle}
                     onTitleChange={this.onTitleChange.bind(this)}
                     onFormSubmit={this.onFormSubmit.bind(this)}
@@ -246,71 +209,12 @@ export default class MoviesList extends React.Component {
                     <thead className="thead-inverse">
                     <tr>
                         <th>ID
-                            <div>
-                                <RaisedButton
-                                    onClick={this.handleTouchTap.bind(this)}
-                                    label="SORT BY ID"/>
-                                <Popover
-                                    open={this.state.open}
-                                    anchorEl={this.state.anchorEl}
-                                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                                    onRequestClose={this.handleRequestClose.bind(this)}
-                                    animation={PopoverAnimationVertical}>
-                                    <svg
-                                        onClick={() => this.ascendingSortBy('id')}
-                                        className="rotate180"
-                                        xmlns="http://www.w3.org/2000/svg" width="20"
-                                        height="20"
-                                        viewBox="0 0 20 20">
-                                        <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
-                                              fill="black"/>
-                                    </svg>
-
-                                    <svg onClick={() => this.descendingSortBy('id')}
-                                         xmlns="http://www.w3.org/2000/svg" width="20"
-                                         height="20"
-                                         viewBox="0 0 20 20">
-                                        <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
-                                              fill="red"/>
-                                    </svg>
-
-                                </Popover>
-                            </div>
+                            <SortButton
+                                descendingSortBy ={this.descendingSortBy.bind(this, 'id')}
+                                ascendingSortBy ={this.ascendingSortBy.bind(this, 'id')}
+                            />
                         </th>
-                        <th>TITLE
-                            <div>
-                                <RaisedButton
-                                    onClick={this.handleTouchTap.bind(this)}
-                                    label="SORT BY TITLE"/>
-                                <Popover
-                                    open={this.state.open}
-                                    anchorEl={this.state.anchorEl}
-                                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                                    onRequestClose={this.handleRequestClose.bind(this)}
-                                    animation={PopoverAnimationVertical}>
-                                    <svg onClick={() => this.ascendingSortBy('title')}
-                                         className="rotate180"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         width="20"
-                                         height="20"
-                                         viewBox="0 0 24 24">
-                                        <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
-                                              fill="black"/>
-                                    </svg>
-
-                                    <svg onClick={() => this.descendingSortBy('title')}
-                                         xmlns="http://www.w3.org/2000/svg" width="20"
-                                         height="20"
-                                         viewBox="0 0 24 24">
-                                        <path
-                                            d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"
-                                            fill="red"/>
-                                    </svg>
-                                </Popover>
-                            </div>
-                        </th>
+                        <th>TITLE</th>
                         <th>ACTION</th>
                         <th>GET RATING</th>
                         <th>RATE MOVIE</th>
@@ -324,4 +228,4 @@ export default class MoviesList extends React.Component {
             </div>
         )
     }
-}
+};
