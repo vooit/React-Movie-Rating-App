@@ -7,7 +7,9 @@ import AddMovieComponent from './AddMovieComponent';
 import Stars from './StarsComponent';
 import RatingButtonComponent from './RatingButtonComponent';
 import SortButton from './SortButtonComponent';
-// import EventFilter from './FilterComponent';
+import EventFilter from './FilterComponent';
+import SearchField from './SearchComponent';
+
 //Material UI Buttons
 import FlatButton from 'material-ui/FlatButton';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
@@ -20,6 +22,8 @@ export default class MoviesList extends React.Component {
             ratings: [],
             newTitle: '',
             newPoster: '',
+            // filter:'',
+            showing: true,
             imagePreviewUrl: ''
         };
     }
@@ -51,7 +55,6 @@ export default class MoviesList extends React.Component {
             })
     }
 
-    //--------------------------//
     onDeleteClick(movieId, e) {
         e.preventDefault();
         const filterMovies = this.state.movies.filter(v => v.id !== movieId);
@@ -59,6 +62,7 @@ export default class MoviesList extends React.Component {
             movies: filterMovies
         })
     }
+
     //SORTING
     compareBy(index) {
         return (a, b) => {
@@ -100,6 +104,10 @@ export default class MoviesList extends React.Component {
             <tr key={index} className="table-hover">
                 <td>#{el.id}</td>
                 <td>{el.title}</td>
+                <td>
+                    <figure><img src={el.poster} style={styles.poster}/></figure>
+                </td>
+                <td><Stars movieId={el.id} movieTitle={el.title}/></td>
                 <td>{/*DELETE ACTION*/}
                     <FlatButton
                         label="DELETE"
@@ -115,13 +123,10 @@ export default class MoviesList extends React.Component {
                 <td>
                     <RatingButtonComponent movieId={el.id}/>
                 </td>
-                <td><Stars movieId={el.id} movieTitle={el.title}/></td>
-                <td>
-                    <figure><img src={el.poster} style={styles.poster}/></figure>
-                </td>
             </tr>
         )
     }
+
     // onFilterChange(event) {
     //     const value = event.currentTarget.value;
     //
@@ -133,14 +138,13 @@ export default class MoviesList extends React.Component {
         this.setState({
             newTitle: event.currentTarget.value
         })
+
     }
 
     onImageChange(event) {
         event.preventDefault();
-
         let reader = new FileReader();
         let file = event.target.files[0];
-
         reader.onloadend = () => {
             this.setState({
                 newPoster: file,
@@ -172,10 +176,19 @@ export default class MoviesList extends React.Component {
         });
     };
 
+    // handleLoopButton(event) {
+    //     event.preventDefault();
+    //     this.setState(prevState => {
+    //         return {
+    //             showing: !prevState.showing
+    //         }
+    //     })
+    // }
+
 
     render() {
         const {movies} = this.state;
-        //LOADER
+        //LOADER//
         if (!movies.length) {
             return <LoaderWars />
         }
@@ -187,19 +200,23 @@ export default class MoviesList extends React.Component {
         } else {
             imagePreview = (<div className="form-center">Please select an Image for Preview</div>);
         }
+        //SEARCHFIELD//
 
         return (
             <div className="list-wrapper">
                 {/*<EventFilter*/}
                 {/*filter={this.state.filter}*/}
                 {/*onFilterChange={this.onFilterChange.bind(this)}/>*/}
-
+                <SearchField
+                    // showForm={this.state.showing}
+                    // handleLoopButton={this.handleLoopButton.bind(this)}
+                />
+                {/*<EventFilter/>*/}
                 <AddMovieComponent
                     title={this.state.newTitle}
                     onTitleChange={this.onTitleChange.bind(this)}
                     onFormSubmit={this.onFormSubmit.bind(this)}
-                    onImageChange={this.onImageChange.bind(this)}
-                />
+                    onImageChange={this.onImageChange.bind(this)}/>
                 <div className="img-preview">
                     {imagePreview}
                 </div>
@@ -210,15 +227,14 @@ export default class MoviesList extends React.Component {
                     <tr>
                         <th>ID
                             <SortButton
-                                descendingSortBy ={this.descendingSortBy.bind(this, 'id')}
-                                ascendingSortBy ={this.ascendingSortBy.bind(this, 'id')}
-                            />
+                                descendingSortBy={this.descendingSortBy.bind(this, 'id')}
+                                ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/>
                         </th>
                         <th>TITLE</th>
+                        <th>POSTER</th>
+                        <th>RATE MOVIE</th>
                         <th>ACTION</th>
                         <th>GET RATING</th>
-                        <th>RATE MOVIE</th>
-                        <th>POSTER</th>
                     </tr>
                     </thead>
                     <tbody>
