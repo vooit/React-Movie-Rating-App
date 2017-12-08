@@ -7,7 +7,6 @@ import AddMovieComponent from './AddMovieComponent';
 import Stars from './StarsComponent';
 import RatingButtonComponent from './RatingButtonComponent';
 import SortButton from './SortButtonComponent';
-import EventFilter from './FilterComponent';
 import SearchField from './SearchComponent';
 
 //Material UI Buttons
@@ -22,7 +21,7 @@ export default class MoviesList extends React.Component {
             ratings: [],
             newTitle: '',
             newPoster: '',
-            // filter:'',
+            filter: '',
             showing: true,
             imagePreviewUrl: ''
         };
@@ -99,6 +98,34 @@ export default class MoviesList extends React.Component {
                 margin: '10px 5px 0px 5px'
             }
         };
+        // if (el.title.indexOf(this.state.filter) > -1) {
+        //     return this.state.movies.map((el, index) =>
+        //         <tr key={index} className="table-hover">
+        //             <td>#{el.id}</td>
+        //             <td>{el.title}</td>
+        //             <td>
+        //                 <figure><img src={el.poster} style={styles.poster}/></figure>
+        //             </td>
+        //             <td><Stars movieId={el.id} movieTitle={el.title}/></td>
+        //             <td>{/*DELETE ACTION*/}
+        //                 <FlatButton
+        //                     label="DELETE"
+        //                     labelPosition="before"
+        //                     icon={<ActionAndroid />}
+        //                     backgroundColor="rgb(0, 188, 212)"
+        //                     hoverColor="rgb(33, 150, 243)"
+        //                     secondary={true}
+        //                     style={styles.buttonColor}
+        //                     onClick={this.onDeleteClick.bind(this, el.id)}
+        //                 />
+        //             </td>
+        //             <td>
+        //                 <RatingButtonComponent movieId={el.id}/>
+        //             </td>
+        //         </tr>
+        //
+        // }
+
 
         return this.state.movies.map((el, index) =>
             <tr key={index} className="table-hover">
@@ -124,124 +151,118 @@ export default class MoviesList extends React.Component {
                     <RatingButtonComponent movieId={el.id}/>
                 </td>
             </tr>
-        )
-    }
+    )
+}
 
-    // onFilterChange(event) {
-    //     const value = event.currentTarget.value;
-    //
-    //     this.setState({
-    //         filter:value
-    //     })
-    // }
-    onTitleChange(event) {
+onFilterChange(event)
+{
+    const value = event.currentTarget.value;
+    console.log(value);
+    this.setState({
+        filter: value
+    })
+}
+
+onTitleChange(event)
+{
+    this.setState({
+        newTitle: event.currentTarget.value
+    })
+
+}
+
+onImageChange(event)
+{
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
         this.setState({
-            newTitle: event.currentTarget.value
-        })
-
-    }
-
-    onImageChange(event) {
-        event.preventDefault();
-        let reader = new FileReader();
-        let file = event.target.files[0];
-        reader.onloadend = () => {
-            this.setState({
-                newPoster: file,
-                imagePreviewUrl: reader.result
-            });
-        };
-        reader.readAsDataURL(file);
-    }
-
-    onFormSubmit(event) {
-        event.preventDefault();
-        const {
-            movies,
-            newTitle,
-            imagePreviewUrl
-        } = this.state;
-        const maxId = Math.max(...movies.map(el => el.id));
-
-        const newMovie = {
-            id: maxId + 1,
-            title: newTitle,
-            poster: imagePreviewUrl
-        };
-        const updateMovies = [...movies, newMovie];
-        this.setState({
-            movies: updateMovies,
-            imagePreviewUrl: '',
-            newTitle: ''
+            newPoster: file,
+            imagePreviewUrl: reader.result
         });
     };
+    reader.readAsDataURL(file);
+}
 
-    // handleLoopButton(event) {
-    //     event.preventDefault();
-    //     this.setState(prevState => {
-    //         return {
-    //             showing: !prevState.showing
-    //         }
-    //     })
-    // }
+onFormSubmit(event)
+{
+    event.preventDefault();
+    const {
+        movies,
+        newTitle,
+        imagePreviewUrl
+    } = this.state;
+    const maxId = Math.max(...movies.map(el => el.id));
+
+    const newMovie = {
+        id: maxId + 1,
+        title: newTitle,
+        poster: imagePreviewUrl
+    };
+    const updateMovies = [...movies, newMovie];
+    this.setState({
+        movies: updateMovies,
+        imagePreviewUrl: '',
+        newTitle: ''
+    });
+}
+;
 
 
-    render() {
-        const {movies} = this.state;
-        //LOADER//
-        if (!movies.length) {
-            return <LoaderWars />
-        }
-        //IMAGE PREVIEW//
-        let {imagePreviewUrl} = this.state;
-        let imagePreview = null;
-        if (imagePreviewUrl) {
-            imagePreview = (<img src={imagePreviewUrl}/>);
-        } else {
-            imagePreview = (<div className="form-center">Please select an Image for Preview</div>);
-        }
-        //SEARCHFIELD//
-
-        return (
-            <div className="list-wrapper">
-                {/*<EventFilter*/}
-                {/*filter={this.state.filter}*/}
-                {/*onFilterChange={this.onFilterChange.bind(this)}/>*/}
-                <SearchField
-                    // showForm={this.state.showing}
-                    // handleLoopButton={this.handleLoopButton.bind(this)}
-                />
-                {/*<EventFilter/>*/}
-                <AddMovieComponent
-                    title={this.state.newTitle}
-                    onTitleChange={this.onTitleChange.bind(this)}
-                    onFormSubmit={this.onFormSubmit.bind(this)}
-                    onImageChange={this.onImageChange.bind(this)}/>
-                <div className="img-preview">
-                    {imagePreview}
-                </div>
-
-                <table className="table table-responsive table-hover table-sm">
-
-                    <thead className="thead-inverse">
-                    <tr>
-                        <th>ID
-                            <SortButton
-                                descendingSortBy={this.descendingSortBy.bind(this, 'id')}
-                                ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/>
-                        </th>
-                        <th>TITLE</th>
-                        <th>POSTER</th>
-                        <th>RATE MOVIE</th>
-                        <th>ACTION</th>
-                        <th>GET RATING</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    { this.renderMoviesList() }
-                    </tbody>
-                </table>
-            </div>
-        )
+render()
+{
+    const {movies} = this.state;
+    //LOADER//
+    if (!movies.length) {
+        return <LoaderWars />
     }
-};
+    //IMAGE PREVIEW//
+    let {imagePreviewUrl} = this.state;
+    let imagePreview = null;
+    if (imagePreviewUrl) {
+        imagePreview = (<img src={imagePreviewUrl}/>);
+    } else {
+        imagePreview = (<div className="form-center">Please select an Image for Preview</div>);
+    }
+    //SEARCHFIELD//
+
+    return (
+        <div className="list-wrapper">
+            <SearchField
+                filter={this.state.filter}
+                onFilterChange={this.onFilterChange.bind(this)}/>
+            {/*<EventFilter/>*/}
+            <AddMovieComponent
+                title={this.state.newTitle}
+                onTitleChange={this.onTitleChange.bind(this)}
+                onFormSubmit={this.onFormSubmit.bind(this)}
+                onImageChange={this.onImageChange.bind(this)}/>
+            <div className="img-preview">
+                {imagePreview}
+            </div>
+
+            <table className="table table-responsive table-hover table-sm">
+                <thead className="thead-inverse">
+                <tr>
+                    <th>ID
+                        <SortButton
+                            descendingSortBy={this.descendingSortBy.bind(this, 'id')}
+                            ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/>
+                    </th>
+                    <th>TITLE</th>
+                    <th>POSTER</th>
+                    <th>RATE MOVIE</th>
+                    <th>ACTION</th>
+                    <th>GET RATING</th>
+                </tr>
+                </thead>
+                <tbody>
+                { this.renderMoviesList() }
+                </tbody>
+            </table>
+        </div>
+    )
+}
+}
+;

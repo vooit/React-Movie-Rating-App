@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import FileAdd from 'material-ui/svg-icons/content/create';
+import FileAdd from 'material-ui/svg-icons/image/add-a-photo';
 
 const AddMovieComponent = (props) => {
 
@@ -15,6 +15,7 @@ const AddMovieComponent = (props) => {
             right: 0,
             left: 0,
             width: '100%',
+            height:'100%',
             opacity: 0,
         }
     };
@@ -40,8 +41,6 @@ const AddMovieComponent = (props) => {
             <FloatingActionButton type="submit" className="translate-left" mini={true}>
                 <ContentAdd />
             </FloatingActionButton>
-
-
         </form>
     )
 };
