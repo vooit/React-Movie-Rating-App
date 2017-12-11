@@ -37,11 +37,11 @@ module.exports = {
                 ))
             },
             {
-                test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+                test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)|\.mp3($|\?)/,
                 use: 'url-loader'
             },
             {
-                test: /\.(jpe?g|gif|png|svg|JPG)$/,
+                test: /\.(jpe?g|gif|png|mp3|svg|JPG)$/,
                 loader: 'file-loader?emitFile=false&name=[path][name].[ext]'
             },
         ]

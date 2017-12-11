@@ -2,10 +2,12 @@
  * Created by Wojtek on 2017-10-19.
  */
 @import "starWarsLoader";
+@import "playerComponent";
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
 
 $material-blue: #00bcd4;
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 
 * {
   font-family: 'Roboto', sans-serif !important;
