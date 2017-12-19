@@ -72,34 +72,6 @@ export default class MoviesList extends React.Component {
                 margin: '10px 5px 0px 5px'
             }
         };
-        // if (el.title.indexOf(this.state.filter) > -1) {
-        //     return this.state.movies.map((el, index) =>
-        //         <tr key={index} className="table-hover">
-        //             <td>#{el.id}</td>
-        //             <td>{el.title}</td>
-        //             <td>
-        //                 <figure><img src={el.poster} style={styles.poster}/></figure>
-        //             </td>
-        //             <td><Stars movieId={el.id} movieTitle={el.title}/></td>
-        //             <td>{/*DELETE ACTION*/}
-        //                 <FlatButton
-        //                     label="DELETE"
-        //                     labelPosition="before"
-        //                     icon={<ActionAndroid />}
-        //                     backgroundColor="rgb(0, 188, 212)"
-        //                     hoverColor="rgb(33, 150, 243)"
-        //                     secondary={true}
-        //                     style={styles.buttonColor}
-        //                     onClick={this.onDeleteClick.bind(this, el.id)}
-        //                 />
-        //             </td>
-        //             <td>
-        //                 <RatingButtonComponent movieId={el.id}/>
-        //             </td>
-        //         </tr>
-        //
-        // }
-
 
         return this.state.movies.map((el, index) =>
             <tr key={index} className="table-hover">
@@ -288,4 +260,3 @@ export default class MoviesList extends React.Component {
         )
     }
 }
-;
