@@ -12,8 +12,14 @@ import PlayButton from './MusicPlayerComponent';
 // import entryMusic from '../audio/star-wars-theme.mp3';
 
 //Material UI Buttons
+import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
+import Badge from 'material-ui/Badge';
+// import IconButton from 'material-ui/IconButton';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import FileDelete from 'material-ui/svg-icons/image/add-a-photo';
 
 export default class MoviesList extends React.Component {
     constructor(props) {
@@ -26,7 +32,7 @@ export default class MoviesList extends React.Component {
             filter: '',
             showing: true,
             imagePreviewUrl: '',
-            playing:false
+            playing: false
         };
     }
 
@@ -61,42 +67,80 @@ export default class MoviesList extends React.Component {
 //TABLE RENDER
     renderMoviesList() {
         const styles = {
-            buttonColor: {
-                cursor: 'pointer',
-                color: 'white',
-                fontWeight: '400',
-                fontSize: '10px'
-            },
-            poster: {
-                width: '100px',
-                margin: '10px 5px 0px 5px'
-            }
-        };
 
+                btnButton: {
+                    position: 'absolute',
+                    right: '-13px',
+                    top: '-19px',
+                    zIndex: '10'
+                },
+                poster: {
+                    width: '100px',
+                    margin: '10px 5px 0px 5px'
+                },
+                card: {
+                    fontSize: '.8em'
+                }
+            }
+        ;
         return this.state.movies.map((el, index) =>
-            <tr key={index} className="table-hover">
-                <td>#{el.id}</td>
-                <td>{el.title}</td>
-                <td>
-                    <figure><img src={el.poster} style={styles.poster}/></figure>
-                </td>
-                <td><Stars movieId={el.id} movieTitle={el.title}/></td>
-                <td>{/*DELETE ACTION*/}
-                    <FlatButton
-                        label="DELETE"
-                        labelPosition="before"
-                        icon={<ActionAndroid />}
-                        backgroundColor="rgb(0, 188, 212)"
-                        hoverColor="rgb(33, 150, 243)"
-                        secondary={true}
-                        style={styles.buttonColor}
-                        onClick={this.onDeleteClick.bind(this, el.id)}
-                    />
-                </td>
-                <td>
-                    <RatingButtonComponent movieId={el.id}/>
-                </td>
-            </tr>
+
+            // /*
+            //  <tr key={index} className="table-hover">
+            //      <td>#{el.id}</td>
+            //      <td>{el.title}</td>
+            //      <td>
+            //          <figure><img src={el.poster} style={styles.poster}/></figure>
+            //      </td>
+            //      <td><Stars movieId={el.id} movieTitle={el.title}/></td>
+            //      <td>{/*DELETE ACTION*/}
+            //  /*
+            //          <FlatButton
+            //              label="DELETE"
+            //              labelPosition="before"
+            //              icon={<ActionAndroid />}
+            //              backgroundColor="rgb(0, 188, 212)"
+            //              hoverColor="rgb(33, 150, 243)"
+            //              secondary={true}
+            //              style={styles.buttonColor}
+            //              onClick={this.onDeleteClick.bind(this, el.id)}
+            //          />
+            //      </td>
+            //      <td>
+            //          <RatingButtonComponent movieId={el.id}/>
+            //      </td>
+            //  </tr>
+            //  */
+
+            <div key={index} className='item-element'>
+                <Paper zDepth={0} className="list-paper">
+                    <Card>
+                        <FloatingActionButton
+                            className="btn-delete"
+                            mini={true}
+                            style={styles.btnButton}
+                            backgroundColor="rgb(0, 188, 212)"
+                            hoverColor="rgb(33, 150, 243)"
+                            onClick={this.onDeleteClick.bind(this, el.id)}>
+                            <ActionAndroid />
+                        </FloatingActionButton>
+
+                        <Badge badgeContent={el.id}
+                               className='item-idBadge'
+                               primary={true}
+                               tooltip="Notifications">
+                        </Badge>
+                        <CardMedia
+                            overlay={<CardTitle title={el.title}
+                                                className="card-text"/>}>
+                            <img src={el.poster} style={styles.poster}/></CardMedia>
+
+                        <RatingButtonComponent movieId={el.id}/>
+                        <Stars movieId={el.id} movieTitle={el.title}/>
+                    </Card>
+
+                </Paper>
+            </div>
         )
     }
 
@@ -192,7 +236,7 @@ export default class MoviesList extends React.Component {
         if (this.state.playing) {
             this.audio.pause();
             // this.audio.play();
-           }
+        }
         else {
             this.audio.play();
         }
@@ -222,8 +266,10 @@ export default class MoviesList extends React.Component {
         //SEARCHFIELD//
         return (
             <div className="list-wrapper">
-                <PlayButton onClick={this.handlePlay.bind(this)} playing = {this.state.playing}/>
-                <audio id="audio" src="src/audio/star-wars-theme.mp3" ref={(audioTag) => {this.audio = audioTag}}/>
+                <PlayButton onClick={this.handlePlay.bind(this)} playing={this.state.playing}/>
+                <audio id="audio" src="src/audio/star-wars-theme.mp3" ref={(audioTag) => {
+                    this.audio = audioTag
+                }}/>
                 <SearchField
                     filter={this.state.filter}
                     onFilterChange={this.onFilterChange.bind(this)}/>
@@ -237,25 +283,33 @@ export default class MoviesList extends React.Component {
                     {imagePreview}
                 </div>
 
-                <table className="table table-responsive table-hover table-sm">
-                    <thead className="thead-inverse">
-                    <tr>
-                        <th>ID
-                            <SortButton
-                                descendingSortBy={this.descendingSortBy.bind(this, 'id')}
-                                ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/>
-                        </th>
-                        <th>TITLE</th>
-                        <th>POSTER</th>
-                        <th>RATE MOVIE</th>
-                        <th>ACTION</th>
-                        <th>GET RATING</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    { this.renderMoviesList() }
-                    </tbody>
-                </table>
+                {/*<table className="table table-responsive table-hover table-sm">*/}
+                {/*<thead className="thead-inverse">*/}
+                {/*<tr>*/}
+                {/*<th>ID*/}
+                {/*<SortButton*/}
+                {/*descendingSortBy={this.descendingSortBy.bind(this, 'id')}*/}
+                {/*ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/>*/}
+                {/*</th>*/}
+                {/*<th>TITLE</th>*/}
+                {/*<th>POSTER</th>*/}
+                {/*<th>RATE MOVIE</th>*/}
+                {/*<th>ACTION</th>*/}
+                {/*<th>GET RATING</th>*/}
+                {/*</tr>*/}
+                {/*</thead>*/}
+                {/*<tbody>*/}
+                {/*{ this.renderMoviesList() }*/}
+                {/*</tbody>*/}
+                {/*</table>*/}
+                <Paper zDepth={4} className="list-paper">
+                    <div className="sort"><SortButton
+                        descendingSortBy={this.descendingSortBy.bind(this, 'id')}
+                        ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/></div>
+                    <div className="items-wrapper">
+                        { this.renderMoviesList() }
+                    </div>
+                </Paper>
             </div>
         )
     }

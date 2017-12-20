@@ -3,12 +3,9 @@
  */
 
 import React from 'react';
-import MoviesList from "./ListComponent";
-// import LogoComponent from "./LogoComponent";
+import MoviesList from "./List/ListComponent";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
-import About from './About/About';
-
 
 export default class App extends React.Component {
     render() {
@@ -16,8 +13,7 @@ export default class App extends React.Component {
             <MuiThemeProvider>
                 <div className="container">
                     <Paper zDepth={4} className="movies-list">
-                        {/*<LogoComponent/>*/}
-                        <MoviesList />
+                        <MoviesList/>
                     </Paper>
                 </div>
             </MuiThemeProvider>

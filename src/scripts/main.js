@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 
 // import App from './AppComponent.js';
 
-import App from './App';
+import NavHeader from './NaviComponent';
 
 
 import 'bootstrap/scss/bootstrap.scss';
 import '../styles/styles.scss';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<NavHeader />, document.getElementById('app'));

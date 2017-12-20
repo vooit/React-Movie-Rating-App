@@ -90,7 +90,7 @@ export default class Stars extends React.Component {
         }
 
         return (
-            <div>
+            <div className="rating-wrapper">
                 <div className={classNames({
                     'rating': true,
                     'rating-readonly': this.props.readonly,
@@ -101,8 +101,6 @@ export default class Stars extends React.Component {
                         value={this.state.rating}/>
                     }
                 </div>
-
-                <br/>
                 {this.state.showPopup ?
                     <Popup textTitle={this.props.movieTitle} textRate={this.state.rating}
                            closePopup={this.togglePopup.bind(this)}/> : null}

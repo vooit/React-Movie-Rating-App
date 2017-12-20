@@ -11,14 +11,13 @@ import {
 } from 'react-router-dom';
 
 import AppComponent from './AppComponent';
-// import Details from './details/Details';
 import About from './About/About';
 
-const App = () => {
+const NavHeader = () => {
     return (
         <Router>
-            <div>
-                <ul>
+            <div className="navi">
+                <ul className="navi-list">
                     <li>
                         <Link to="/">Home</Link>
                     </li>
@@ -33,4 +32,4 @@ const App = () => {
         </Router>
     )
 }
-export default App;
+export default NavHeader;

@@ -1,4 +1,9 @@
 
+.player-text {
+  margin-left: 45px;
+  padding: 9px;
+  color: #ffffff;
+}
 
 .play {
   display: block;
@@ -6,29 +11,28 @@
   height: 0;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-left: 11px solid #272525;
+  border-left: 11px solid white;
   margin: 10px auto;
   position: absolute;
-  top:20px;
+  top: 0;
   z-index: 1;
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
-  left: 10px;
+  left: 25px;
   &:before {
-      content: '';
-      position: absolute;
-      top: -18px;
-      left: -27px;
-      bottom: -20px;
-      right: -12px;
-      border-radius: 50%;
-      border: 2px solid #080808;
-      z-index: 2;
-      transition: all 0.3s;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-
+    content: '';
+    position: absolute;
+    top: -18px;
+    left: -27px;
+    bottom: -20px;
+    right: -12px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    z-index: 2;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
 
   }
   &:after {
@@ -40,15 +44,16 @@
   }
 }
 
-
 .play:hover:before, .play:focus:before {
   transform: scale(1.1);
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
 }
+
 .play.active {
   border-color: transparent;
 }
+
 .play.active:after {
   content: '';
   opacity: 1;
@@ -57,6 +62,6 @@
   position: absolute;
   right: 1px;
   top: -7px;
-  border-right: 4px solid #040404;
-  border-left: 4px solid #040404;
+  border-right: 4px solid white;
+  border-left: 4px solid white;
 }
