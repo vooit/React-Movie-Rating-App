@@ -7,6 +7,7 @@ import MoviesList from "./ListComponent";
 // import LogoComponent from "./LogoComponent";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
+import About from './About/About';
 
 
 export default class App extends React.Component {

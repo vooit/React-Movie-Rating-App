@@ -1,8 +1,8 @@
 /**
- * Created by Wojtek on 2017-12-18.
+ * Created by Wojtek on 2017-12-20.
  */
-import React from 'react';
 
+import React from 'react'
 import {
     BrowserRouter as Router,
     Route,
@@ -14,10 +14,14 @@ import AppComponent from './AppComponent';
 // import Details from './details/Details';
 import About from './About/About';
 
-const App = () => {
-    return (
+// The Header creates links that can be used to navigate
+// between routes.
+const Header = () => (
+    <header>
+
+
         <Router>
-            <div>
+            <nav>
                 <ul>
                     <li>
                         <Link to="/">Home</Link>
@@ -26,11 +30,13 @@ const App = () => {
                         <Link to="/About/About">About</Link>
                     </li>
                 </ul>
-
+                <Route path="/details"/>
                 <Route path="/About/About" component={About}/>
-                <Route exact path="/" component={AppComponent}/>
-            </div>
+                <Route path="/" component={AppComponent}/>
+            </nav>
         </Router>
-    )
-}
-export default App;
+
+    </header>
+)
+
+export default Header
