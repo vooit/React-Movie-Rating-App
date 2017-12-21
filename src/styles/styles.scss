@@ -10,7 +10,12 @@ $material-blue: #00bcd4;
 * {
   font-family: 'Roboto', sans-serif !important;
 }
-
+.vissible {
+  opacity: 1;
+}
+.hidden {
+  opacity:0;
+}
 body {
   background-image: url("/src/img/wars.jpg");
   background-size: cover;
@@ -19,7 +24,6 @@ body {
 
 .rating {
   cursor: pointer;
-  //display: inline-block;
   white-space: nowrap;
   font-size: 28px;
   display: block;
@@ -93,7 +97,9 @@ svg {
 
   }
 }
-
+.list-panel {
+  background-color: white;
+}
 .movies-list {
   position: relative;
   .spinner {
@@ -129,21 +135,25 @@ svg {
   .list-wrapper {
     min-height: 86vh;
     position: relative;
-    .list-paper {
-      width: 90%;
-      margin: 0 auto;
-      position: relative !important;
-
-    }
+    //.list-paper {
+    //
+    //
+    //
+    //
+    //}
   }
   .items-wrapper {
+    width: 90%;
+    margin: 0 auto;
+    //position: relative !important;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     .item-element {
-      width: 25%;
+      width: 30%;
       flex-basis: auto;
-      margin: 20px 10px;
+      margin: 20px 0;
+      position: relative!important;
       .btn-delete {
 
       }
@@ -151,7 +161,7 @@ svg {
         margin: 0 auto !important;
         min-height: 200px;
       }
-      .list-paper {
+      //.list-paper {
 
         .item-idBadge {
           padding: 0 !important;
@@ -168,7 +178,7 @@ svg {
             left: -11px;
             border-radius: 5px!important;
           }
-        }
+        //}
         .card-text {
           padding: 4px 2px !important;
           span {
