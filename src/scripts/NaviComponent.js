@@ -18,15 +18,13 @@ const NavHeader = () => {
             <div>
                 <div className="navi">
                     <div className="container">
-
-
                         <div className="navi__logo">
                             <img src="src/img/Star_Wars_Logo.png"/>
 
                         </div>
                         <ul className="navi__list">
                             <li>
-                                <NavLink activeClassName="active" to="/">Home</NavLink>
+                                <NavLink exact activeClassName="active" to="/">Home</NavLink>
                             </li>
                             <li>
                                 <NavLink
