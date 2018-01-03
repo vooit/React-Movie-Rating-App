@@ -38,11 +38,6 @@ export default class Stars extends React.Component {
             tmpRating: rating,
             rating: rating
         });
-        const newRatingObject = {
-            movie_id: this.props.movieId,
-            rating: this.state.rating
-        };
-        // console.log(newRatingObject);
         return fetch(this.getRatingUrl(movieId, rating), {
             method: 'post',
             dataType: 'json',
@@ -90,11 +85,14 @@ export default class Stars extends React.Component {
         }
 
         return (
-            <div className="rating-wrapper">
+            <div>
+
                 <div className={classNames({
                     'rating': true,
                     'rating-readonly': this.props.readonly,
-                })} onMouseOut={this.reset.bind(this)}>{stars}
+                })} onMouseOut={this.reset.bind(this)}>
+                    <h4>Rate this movie!</h4>
+                    {stars}
                     {this.props.readonly || !this.props.id ? null : <input
                         type="hidden"
                         id={this.props.id}

@@ -15,13 +15,21 @@ const AddMovieComponent = (props) => {
             right: 0,
             left: 0,
             width: '100%',
-            height:'100%',
+            height: '100%',
             opacity: 0,
+        },
+        addField: {
+            width: '100%',
+            flexWrap: 'nowrap',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
         }
     };
 
     return (
-        <form className="form-inline form-center"
+        <form className="form-inline"
+            // style={styles.addField}
               onSubmit={props.onFormSubmit}>
             <FloatingActionButton
                 className="translate-right"
@@ -33,7 +41,7 @@ const AddMovieComponent = (props) => {
             </FloatingActionButton>
 
             <input type="text"
-                   className="form-control form-center"
+                   className="form-control"
                    id="newItemInput"
                    value={props.title}
                    placeholder="title"

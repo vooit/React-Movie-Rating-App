@@ -6,7 +6,6 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Route,
-    Link,
     NavLink
 } from 'react-router-dom';
 
@@ -16,18 +15,31 @@ import About from './About/About';
 const NavHeader = () => {
     return (
         <Router>
-            <div className="navi">
-                <ul className="navi-list">
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/About/About">About</Link>
-                    </li>
-                </ul>
+            <div>
+                <div className="navi">
+                    <div className="container">
 
-                <Route path="/About/About" component={About}/>
+
+                        <div className="navi__logo">
+                            <img src="src/img/Star_Wars_Logo.png"/>
+
+                        </div>
+                        <ul className="navi__list">
+                            <li>
+                                <NavLink activeClassName="active" to="/">Home</NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    activeClassName="active"
+                                    to="/About/About">About</NavLink>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
                 <Route exact path="/" component={AppComponent}/>
+                <Route path="/About/About" component={About}/>
+
             </div>
         </Router>
     )

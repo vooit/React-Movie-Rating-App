@@ -8,13 +8,11 @@ import Stars from './StarsComponent';
 import RatingButtonComponent from './RatingButtonComponent';
 import SortButton from './SortButtonComponent';
 import SearchField from './SearchComponent';
-// import PlayButton from './MusicPlayerComponent';
+import PlayButton from './PlayerComponent';
 
 //Material UI Buttons
 import Paper from 'material-ui/Paper';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
-import Badge from 'material-ui/Badge';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 export default class MoviesList extends React.Component {
@@ -25,7 +23,8 @@ export default class MoviesList extends React.Component {
             ratings: [],
             newTitle: '',
             newPoster: '',
-            filter: '',
+            filteredString: '',
+            searchString: "",
             // showing: true,
             imagePreviewUrl: '',
             playing: false,
@@ -71,42 +70,34 @@ export default class MoviesList extends React.Component {
                     top: '-19px',
                     zIndex: '10'
                 },
-                poster: {
-                    width: '100px',
-                    margin: '10px 5px 0px 5px'
-                },
                 card: {
                     fontSize: '.8em'
                 }
             }
         ;
         return this.state.movies.map((el, index) =>
-        <div key={index} className='item-element'>
-                <Paper zDepth={0} className="list-paper">
-                    <Card>
+            <div key={index} className='item'>
+                <Paper zDepth={4}>
+                    <div className="item__header">
                         <FloatingActionButton
                             className="btn-delete"
                             mini={true}
                             style={styles.btnButton}
                             backgroundColor="rgb(0, 188, 212)"
-                            hoverColor="rgb(33, 150, 243)"
                             onClick={this.onDeleteClick.bind(this, el.id)}>
                             <ActionAndroid />
                         </FloatingActionButton>
-
-                        <Badge badgeContent={el.id}
-                               className='item-idBadge'
-                               primary={true}
-                               tooltip="Notifications">
-                        </Badge>
-                        <CardMedia
-                            overlay={<CardTitle title={el.title}
-                                                className="card-text"/>}>
-                            <img src={el.poster} style={styles.poster}/></CardMedia>
-
+                        <span className='item-idBadge'>{el.id}</span>
+                        <h2>{el.title}</h2>
+                    </div>
+                    <div className="item__body">
+                        <div className="item__body--poster"><img src={el.poster}/>
+                        </div>
                         <RatingButtonComponent movieId={el.id}/>
+                    </div>
+                    <div className="item__footer">
                         <Stars movieId={el.id} movieTitle={el.title}/>
-                    </Card>
+                    </div>
 
                 </Paper>
             </div>
@@ -146,14 +137,19 @@ export default class MoviesList extends React.Component {
         this.setState({movies: arrayCopy});
     }
 
-
-    onFilterChange(event) {
-        const value = event.currentTarget.value;
-        console.log(value);
+    //FILTERING LIST
+    onFilterChange(e) {
+        const {movies} = this.state;
         this.setState({
-            filter: value
+            filteredString: e.target.filter,
+            movies: this.filterList(e.target.value, movies)
         })
     }
+
+    filterList(str, data) {
+        return data.filter((element) => element.toLowerCase().match(str));
+    }
+
 
     onTitleChange(event) {
         this.setState({
@@ -204,7 +200,6 @@ export default class MoviesList extends React.Component {
         console.log(this.state.playing);
         if (this.state.playing) {
             this.audio.pause();
-            // this.audio.play();
         }
         else {
             this.audio.play();
@@ -217,7 +212,6 @@ export default class MoviesList extends React.Component {
     }
 
     handleTogglePanel() {
-        const {showingPanel} = this.state;
         this.setState((prevState) => ({
             showingPanel: !(prevState.showingPanel)
         }))
@@ -239,19 +233,20 @@ export default class MoviesList extends React.Component {
         }
         //SEARCHFIELD//
         return (
-            <div className="list-wrapper">
-                <button onClick={this.handleTogglePanel.bind(this)}>show</button>
-                <div className={ this.state.showingPanel ? "vissible" : "hidden" }>
-                    <div className="sort">
-                        <SortButton
-                            descendingSortBy={this.descendingSortBy.bind(this, 'id')}
-                            ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/></div>
-                    {/*<PlayButton onClick={this.handlePlay.bind(this)} playing={this.state.playing}/>*/}
-                    {/*<audio id="audio" src="src/audio/star-wars-theme.mp3" ref={(audioTag) => {this.audio = audioTag}}/>*/}
-                    <SearchField
-                        filter={this.state.filter}
-                        onFilterChange={this.onFilterChange.bind(this)}/>
-                    {/*<EventFilter/>*/}
+            <div>
+
+                <a href="#" className="button"
+                   onClick={this.handleTogglePanel.bind(this)}>Panel</a>
+                <div className={ this.state.showingPanel ? "panel vissible" : "panel hidden" }>
+                    <PlayButton onClick={this.handlePlay.bind(this)} playing={this.state.playing}/>
+                    <audio id="audio" src="src/audio/star-wars-theme.mp3" ref={(audioTag) => {
+                        this.audio = audioTag
+                    }}/>
+
+                    <SortButton
+                        descendingSortBy={this.descendingSortBy.bind(this, 'id')}
+                        ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/>
+
                     <AddMovieComponent
                         title={this.state.newTitle}
                         onTitleChange={this.onTitleChange.bind(this)}
@@ -260,14 +255,15 @@ export default class MoviesList extends React.Component {
                     <div className="img-preview">
                         {imagePreview}
                     </div>
+                    <h4>Filter movies list</h4>
+                    <SearchField
+                        filter={this.state.filter}
+                        onFilterChange={this.onFilterChange.bind(this)}/>
+
                 </div>
-
-                {/*<div className="list-paper">*/}
-
-                    <div className="items-wrapper">
-                        { this.renderMoviesList() }
-                    </div>
-                {/*</div>*/}
+                <div className="items-wrapper container">
+                    { this.renderMoviesList() }
+                </div>
             </div>
         )
     }

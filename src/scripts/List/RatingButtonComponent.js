@@ -37,7 +37,6 @@ export default class RatingButtonComponent extends React.Component {
     }
 
     renderAvarage() {
-
         let ratings = this.state.ratings;
         let avarageRating = ratings.reduce((prev, next) => {
             return prev + next.rating
@@ -50,6 +49,7 @@ export default class RatingButtonComponent extends React.Component {
 
         return <span className={classNames({
             'red': false,
+            'avarage--field': true,
             'green': true,
         })}>{digitRating} </span>
     }
@@ -64,16 +64,15 @@ export default class RatingButtonComponent extends React.Component {
             }
         };
         return (
-            <div className="avarage">
+            <div className="item__body--avarage">
                 <FlatButton
                     onClick={this.getMovieRating.bind(this, this.props.movieId)}
                     label="get rating"
                     backgroundColor="rgb(0, 188, 212)"
-                    hoverColor="rgb(33, 150, 243)"
                     primary={true}
                     style={styles.buttonRating}
                 />
-                <p className="avarage--field"> { this.renderAvarage() }</p>
+               { this.renderAvarage() }
             </div>
         )
     }
