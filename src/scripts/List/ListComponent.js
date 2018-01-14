@@ -80,14 +80,14 @@ export default class MoviesList extends React.Component {
                 <Paper zDepth={4}>
                     <div className="item__header">
                         <FloatingActionButton
-                            className="btn-delete"
+                            className="item__header--btn-delete"
                             mini={true}
                             style={styles.btnButton}
                             backgroundColor="rgb(0, 188, 212)"
                             onClick={this.onDeleteClick.bind(this, el.id)}>
                             <ActionAndroid />
                         </FloatingActionButton>
-                        <span className='item-idBadge'>{el.id}</span>
+                        <span className='item__header--idBadge'>{el.id}</span>
                         <h2>{el.title}</h2>
                     </div>
                     <div className="item__body">
@@ -180,8 +180,8 @@ export default class MoviesList extends React.Component {
             newTitle,
             imagePreviewUrl
         } = this.state;
+        // generate new unique id
         const maxId = Math.max(...movies.map(el => el.id));
-
         const newMovie = {
             id: maxId + 1,
             title: newTitle,

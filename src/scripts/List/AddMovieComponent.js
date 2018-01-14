@@ -5,7 +5,6 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import FileAdd from 'material-ui/svg-icons/image/add-a-photo';
 
 const AddMovieComponent = (props) => {
-
     const styles = {
         uploadInput: {
             cursor: 'pointer',
@@ -17,6 +16,7 @@ const AddMovieComponent = (props) => {
             width: '100%',
             height: '100%',
             opacity: 0,
+            zIndex: '100'
         },
         addField: {
             width: '100%',
@@ -29,7 +29,6 @@ const AddMovieComponent = (props) => {
 
     return (
         <form className="form-inline"
-            // style={styles.addField}
               onSubmit={props.onFormSubmit}>
             <FloatingActionButton
                 className="translate-right"
@@ -58,6 +57,5 @@ AddMovieComponent.propTypes = {
     onTitleChange: PropTypes.func.isRequired,
     onFormSubmit: PropTypes.func.isRequired
 };
-
 
 export default AddMovieComponent;

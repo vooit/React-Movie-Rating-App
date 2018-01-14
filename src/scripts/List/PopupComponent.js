@@ -28,7 +28,7 @@ class Popup extends React.Component {
         return (
             <Paper zDepth={4}>
                 <div className='popup'>
-                    <div className='popup_inner'>
+                    <div className='popup__inner'>
                         <h1 style={styles.textCenter}>You 've rated &nbsp;{this.props.textTitle}
                             &nbsp;on&nbsp; {this.props.textRate}</h1>
                         <FloatingActionButton style={styles.buttonPos}
