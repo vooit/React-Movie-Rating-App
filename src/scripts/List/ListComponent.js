@@ -234,31 +234,33 @@ export default class MoviesList extends React.Component {
         //SEARCHFIELD//
         return (
             <div>
-
                 <a href="#" className="button"
                    onClick={this.handleTogglePanel.bind(this)}>Panel</a>
                 <div className={ this.state.showingPanel ? "panel vissible" : "panel hidden" }>
-                    <PlayButton onClick={this.handlePlay.bind(this)} playing={this.state.playing}/>
-                    <audio id="audio" src="src/audio/star-wars-theme.mp3" ref={(audioTag) => {
-                        this.audio = audioTag
-                    }}/>
+                    <div className="panel--wrapper">
+                        <PlayButton onClick={this.handlePlay.bind(this)} playing={this.state.playing}/>
+                        <audio id="audio" src="src/audio/star-wars-theme.mp3" ref={(audioTag) => {
+                            this.audio = audioTag
+                        }}/>
 
-                    <SortButton
-                        descendingSortBy={this.descendingSortBy.bind(this, 'id')}
-                        ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/>
+                        <SortButton
+                            descendingSortBy={this.descendingSortBy.bind(this, 'id')}
+                            ascendingSortBy={this.ascendingSortBy.bind(this, 'id')}/>
 
-                    <AddMovieComponent
-                        title={this.state.newTitle}
-                        onTitleChange={this.onTitleChange.bind(this)}
-                        onFormSubmit={this.onFormSubmit.bind(this)}
-                        onImageChange={this.onImageChange.bind(this)}/>
-                    <div className="img-preview">
-                        {imagePreview}
+                        <AddMovieComponent
+                            title={this.state.newTitle}
+                            onTitleChange={this.onTitleChange.bind(this)}
+                            onFormSubmit={this.onFormSubmit.bind(this)}
+                            onImageChange={this.onImageChange.bind(this)}/>
+                        <div className="img-preview">
+                            {imagePreview}
+                        </div>
+                        <h4>Filter movies list</h4>
+                        <SearchField
+                            filter={this.state.filter}
+                            onFilterChange={this.onFilterChange.bind(this)}/>
                     </div>
-                    <h4>Filter movies list</h4>
-                    <SearchField
-                        filter={this.state.filter}
-                        onFilterChange={this.onFilterChange.bind(this)}/>
+
 
                 </div>
                 <div className="items-wrapper container">

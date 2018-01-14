@@ -46,6 +46,9 @@ body {
   * {
     color: white !important;
   }
+  &--wrapper {
+    min-width: 300px;
+  }
   h4 {
     font-weight: 400;
     font-size: 1em;
@@ -204,7 +207,10 @@ body {
     }
   }
 }
-
+.form-control {
+  text-align: center;
+  padding: 7px;
+}
 :focus::-webkit-input-placeholder {
   opacity: 0;
   -webkit-transition: opacity 0.35s ease-in-out;

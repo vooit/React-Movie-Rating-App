@@ -31,7 +31,7 @@ $spacer-top: 80px;
   background-color: black;
   background-size: auto;
   transform: translate3d(0, 0, 0);
-  background-blend-mode: var(--blend-mode-1);
+  background-blend-mode: $blend-mode-1;
 }
 
 .glitch__img:nth-child(n+2) {
@@ -131,7 +131,7 @@ $spacer-top: 80px;
 @keyframes glitch-anim-2 {
   0% {
     opacity: 1;
-    transform: translate3d(calc(-1 * var(--gap-horizontal)), 0, 0);
+    transform: translate3d(calc(-1 * $gap-horizontal), 0, 0);
     -webkit-clip-path: polygon(0 25%, 100% 25%, 100% 30%, 0 30%);
     clip-path: polygon(0 25%, 100% 25%, 100% 30%, 0 30%);
   }

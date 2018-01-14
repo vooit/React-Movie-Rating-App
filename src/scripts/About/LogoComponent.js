@@ -11,7 +11,6 @@ const LogoComponent = () => {
     };
     return (
         <div>
-            <caption>RATING MOVIE APP</caption>
             <img src="src/img/camera.png" style={style}/>
         </div>
     )

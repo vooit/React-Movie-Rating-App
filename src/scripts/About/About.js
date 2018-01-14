@@ -30,7 +30,7 @@ const About = () => {
             <div className="container">
                 <Paper zDepth={4} className="About"
                        style={styles.about}>
-                    <caption style={styles.caption}>RATING MOVIE APP</caption>
+                    <h1 style={styles.caption}>RATING MOVIE APP</h1>
                     <img src="../src/img/camera.png" style={styles.logo}/>
                     <h2>It's a simple CRUD app build on React and React-Router 4,
                         with using:
