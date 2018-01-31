@@ -5,7 +5,8 @@ react app , fetch GET/POST, material design, react-router v4, glith css effect, 
 npm install --> npm start
 
 dev: webpack -d
-prod: webpack -p
+<br>  
+prod: webpack -p (production doesn't work for this moment :/ sorry , fix it soon)
 
 
 serve@ : http://localhost:8080/
