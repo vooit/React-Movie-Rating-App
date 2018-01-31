@@ -48,6 +48,6 @@ const About = () => {
             </div>
         </MuiThemeProvider>
     )
-}
+};
 
 export default About;
