@@ -10,5 +10,7 @@ prod: webpack -p
 
 serve@ : http://localhost:8080/
 
-
+examle look: 
 <img src='https://github.com/vooit/React-Movie-Rating-App/blob/master/react-movie-rating-app-pics.png'/>
+
+
