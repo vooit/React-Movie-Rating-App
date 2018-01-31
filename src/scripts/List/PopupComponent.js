@@ -16,7 +16,7 @@ class Popup extends React.Component {
                 fontSize: '1.4rem',
                 textAlign: 'center',
                 fontWeight: '200',
-                color: 'white'
+                color: 'orange'
             },
             buttonPos: {
                 position: 'absolute',

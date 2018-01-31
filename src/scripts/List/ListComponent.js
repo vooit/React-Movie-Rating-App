@@ -25,7 +25,6 @@ export default class MoviesList extends React.Component {
             newPoster: '',
             filteredString: '',
             searchString: "",
-            // showing: true,
             imagePreviewUrl: '',
             playing: false,
             showingPanel: false
