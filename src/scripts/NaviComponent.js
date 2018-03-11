@@ -6,11 +6,13 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Route,
-    NavLink
+    NavLink,
+    Switch
 } from 'react-router-dom';
 
 import AppComponent from './AppComponent';
 import About from './About/About';
+import NotFound from './NotFound/NotFound';
 
 const NavHeader = () => {
     return (
@@ -20,7 +22,6 @@ const NavHeader = () => {
                     <div className="container">
                         <div className="navi__logo">
                             <img src="src/img/Star_Wars_Logo.png"/>
-
                         </div>
                         <ul className="navi__list">
                             <li>
@@ -35,8 +36,13 @@ const NavHeader = () => {
                     </div>
 
                 </div>
-                <Route exact path="/" component={AppComponent}/>
-                <Route path="/About/About" component={About}/>
+                <Switch>
+                    <Route exact path="/" component={AppComponent}/>
+                    <Route path="/About/About" component={About}/>
+                    <Route component={NotFound}/>
+                </Switch>
+
+
 
             </div>
         </Router>

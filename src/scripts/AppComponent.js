@@ -5,7 +5,6 @@
 import React from 'react';
 import MoviesList from "./List/ListComponent";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
 import Glitch from './GlitchComponent/Glitch';
 
 export default class App extends React.Component {
@@ -14,9 +13,9 @@ export default class App extends React.Component {
             <MuiThemeProvider>
                 <div>
                     <Glitch/>
-                    <Paper zDepth={4} className="movies-list ">
+                    <div className="movies-list ">
                         <MoviesList/>
-                    </Paper>
+                    </div>
                 </div>
             </MuiThemeProvider>
         )

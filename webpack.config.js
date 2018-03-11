@@ -46,6 +46,9 @@ module.exports = {
             },
         ]
     },
+    devServer: {
+        historyApiFallback: true,
+    },
     plugins: [
         new webpack.NamedModulesPlugin(),
         new ExtractTextPlugin({filename: 'styles.css', allChunks: true})

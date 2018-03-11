@@ -28,8 +28,10 @@ $spacer-top: 80px;
   width: $glitch-width;
   height: $glitch-height;
   background: url(/src/img/yoda_bg.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
   background-color: black;
-  background-size: auto;
+  //background-size: auto;
   transform: translate3d(0, 0, 0);
   background-blend-mode: $blend-mode-1;
 }

@@ -2,8 +2,6 @@
  * Created by Wojtek on 2017-12-01.
  */
 
-/* Animation properties */
-
 .starwars-loader {
   z-index: 200;
   perspective: 1200px;
@@ -34,7 +32,7 @@
     right: -2em;
     text-align: center;
     text-transform: uppercase;
-    top: 41%;
+    top: 38%;
     span {
       animation: spin-letters 10s linear infinite;
       display: inline-block;

@@ -28,27 +28,33 @@ const AddMovieComponent = (props) => {
     };
 
     return (
-        <form className="form-inline"
-              onSubmit={props.onFormSubmit}>
-            <FloatingActionButton
-                className="translate-right"
-                backgroundColor="#a4c639"
-                onChange={props.onImageChange}
-                mini={true}>
-                <input type="file" style={styles.uploadInput}/>
-                <FileAdd/>
-            </FloatingActionButton>
+        <div>
 
-            <input type="text"
-                   className="form-control"
-                   id="newItemInput"
-                   value={props.title}
-                   placeholder="title"
-                   onChange={props.onTitleChange}/>
-            <FloatingActionButton type="submit" className="translate-left" mini={true}>
-                <ContentAdd />
-            </FloatingActionButton>
-        </form>
+            <h4>Add new movie!</h4>
+            <form className="form-inline"
+                  onSubmit={props.onFormSubmit}>
+                <FloatingActionButton
+                    className="translate-right"
+                    backgroundColor="#a4c639"
+                    onChange={props.onImageChange}
+                    mini={true}>
+                    <input type="file" style={styles.uploadInput}/>
+                    <FileAdd/>
+                </FloatingActionButton>
+                <label htmlFor="newItemInput">{props.newTitleError}</label>
+                <input type="text"
+                       className="form-control"
+                       id="newItemInput"
+                       value={props.title}
+                       placeholder="title"
+                       onChange={props.onTitleChange}/>
+                <FloatingActionButton type="submit" className="translate-left" mini={true}>
+                    <ContentAdd />
+                </FloatingActionButton>
+            </form>
+
+        </div>
+
     )
 };
 

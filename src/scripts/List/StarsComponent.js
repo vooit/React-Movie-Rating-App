@@ -86,7 +86,6 @@ export default class Stars extends React.Component {
 
         return (
             <div>
-
                 <div className={classNames({
                     'rating': true,
                     'rating-readonly': this.props.readonly,

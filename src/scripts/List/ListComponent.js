@@ -11,7 +11,6 @@ import SearchField from './SearchComponent';
 import PlayButton from './PlayerComponent';
 
 //Material UI Buttons
-import Paper from 'material-ui/Paper';
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 
@@ -22,9 +21,9 @@ export default class MoviesList extends React.Component {
             movies: [],
             ratings: [],
             newTitle: '',
+            newTitleError: '',
             newPoster: '',
-            filteredString: '',
-            searchString: "",
+            filter: '',
             imagePreviewUrl: '',
             playing: false,
             showingPanel: false
@@ -59,49 +58,14 @@ export default class MoviesList extends React.Component {
             })
     }
 
-//TABLE RENDER
-    renderMoviesList() {
-        const styles = {
+    onFilterChange(event) {
+        const value = event.currentTarget.value;
 
-                btnButton: {
-                    position: 'absolute',
-                    right: '-13px',
-                    top: '-19px',
-                    zIndex: '10'
-                },
-                card: {
-                    fontSize: '.8em'
-                }
-            }
-        ;
-        return this.state.movies.map((el, index) =>
-            <div key={index} className='item'>
-                <Paper zDepth={4}>
-                    <div className="item__header">
-                        <FloatingActionButton
-                            className="item__header--btn-delete"
-                            mini={true}
-                            style={styles.btnButton}
-                            backgroundColor="rgb(0, 188, 212)"
-                            onClick={this.onDeleteClick.bind(this, el.id)}>
-                            <ActionAndroid />
-                        </FloatingActionButton>
-                        <span className='item__header--idBadge'>{el.id}</span>
-                        <h2>{el.title}</h2>
-                    </div>
-                    <div className="item__body">
-                        <div className="item__body--poster"><img src={el.poster}/>
-                        </div>
-                        <RatingButtonComponent movieId={el.id}/>
-                    </div>
-                    <div className="item__footer">
-                        <Stars movieId={el.id} movieTitle={el.title}/>
-                    </div>
+        this.setState({
+            filter: value
+        });
+    };
 
-                </Paper>
-            </div>
-        )
-    }
 
     //------------------------------------------------------
 
@@ -136,19 +100,6 @@ export default class MoviesList extends React.Component {
         this.setState({movies: arrayCopy});
     }
 
-    //FILTERING LIST
-    onFilterChange(e) {
-        const {movies} = this.state;
-        this.setState({
-            filteredString: e.target.filter,
-            movies: this.filterList(e.target.value, movies)
-        })
-    }
-
-    filterList(str, data) {
-        return data.filter((element) => element.toLowerCase().match(str));
-    }
-
 
     onTitleChange(event) {
         this.setState({
@@ -171,27 +122,48 @@ export default class MoviesList extends React.Component {
         reader.readAsDataURL(file);
     }
 
+    validate() {
+        let isError = false;
+        const errors = {};
+
+        if (this.state.newTitle.length < 5) {
+            isError = true;
+            errors.titleErrorMessage = "Title needs to be at least 5 characters long";
+        }
+
+        return isError;
+    };
+
+
     //ADD NEW MOVIE TO THE LIST
     onFormSubmit(event) {
         event.preventDefault();
-        const {
-            movies,
-            newTitle,
-            imagePreviewUrl
-        } = this.state;
-        // generate new unique id
-        const maxId = Math.max(...movies.map(el => el.id));
-        const newMovie = {
-            id: maxId + 1,
-            title: newTitle,
-            poster: imagePreviewUrl
-        };
-        const updateMovies = [...movies, newMovie];
-        this.setState({
-            movies: updateMovies,
-            imagePreviewUrl: '',
-            newTitle: ''
-        });
+        const err = this.validate();
+
+        if (!err) {
+            const {
+                movies,
+                newTitle,
+                imagePreviewUrl
+            } = this.state;
+            // generate new unique id
+            const maxId = Math.max(...movies.map(el => el.id));
+            const newMovie = {
+                id: maxId + 1,
+                title: newTitle,
+                poster: imagePreviewUrl
+            };
+            const updateMovies = [...movies, newMovie];
+
+            //clear inputs
+            this.setState({
+                movies: updateMovies,
+                imagePreviewUrl: '',
+                newTitle: ''
+            });
+        }
+
+
     };
 
     handlePlay(e) {
@@ -210,11 +182,65 @@ export default class MoviesList extends React.Component {
         })
     }
 
+
+    //FILTERING LIST
+    onFilterChange(event) {
+        const value = event.currentTarget.value;
+
+        this.setState({
+            filter: value
+        });
+    };
+
+
     handleTogglePanel() {
         this.setState((prevState) => ({
             showingPanel: !(prevState.showingPanel)
         }))
     }
+
+
+    //TABLE RENDER
+    renderMoviesList() {
+        const styles = {
+            btnButton: {
+                position: 'absolute',
+                right: '-13px',
+                top: '-19px',
+                zIndex: '10'
+            },
+            card: {
+                fontSize: '.8em'
+            }
+        }
+        return this.state.movies.map((el, index) =>
+            <div key={index} className='item'>
+                <div className="item__header">
+                    <FloatingActionButton
+                        className="item__header--btn-delete"
+                        mini={true}
+                        style={styles.btnButton}
+                        backgroundColor="rgb(0, 188, 212)"
+                        onClick={this.onDeleteClick.bind(this, el.id)}>
+                        <ActionAndroid />
+                    </FloatingActionButton>
+                    <span className='item__header--idBadge'>{el.id}</span>
+                    <h2>{el.title}</h2>
+                </div>
+                <div className="item__body">
+                    <div className="item__body--poster"><img src={el.poster}/>
+                    </div>
+                    <RatingButtonComponent movieId={el.id}/>
+                </div>
+                <div className="item__footer">
+                    <Stars movieId={el.id} movieTitle={el.title}/>
+                </div>
+            </div>
+        )
+    }
+
+
+
 
     render() {
         const {movies} = this.state;
@@ -237,7 +263,8 @@ export default class MoviesList extends React.Component {
                    onClick={this.handleTogglePanel.bind(this)}>Panel</a>
                 <div className={ this.state.showingPanel ? "panel vissible" : "panel hidden" }>
                     <div className="panel--wrapper">
-                        <PlayButton onClick={this.handlePlay.bind(this)} playing={this.state.playing}/>
+                        <PlayButton onClick={this.handlePlay.bind(this)}
+                                    playing={this.state.playing}/>
                         <audio id="audio" src="src/audio/star-wars-theme.mp3" ref={(audioTag) => {
                             this.audio = audioTag
                         }}/>
@@ -248,19 +275,16 @@ export default class MoviesList extends React.Component {
 
                         <AddMovieComponent
                             title={this.state.newTitle}
+                            newTitleError = {this.state.newTitleError}
                             onTitleChange={this.onTitleChange.bind(this)}
                             onFormSubmit={this.onFormSubmit.bind(this)}
                             onImageChange={this.onImageChange.bind(this)}/>
                         <div className="img-preview">
                             {imagePreview}
                         </div>
-                        <h4>Filter movies list</h4>
-                        <SearchField
-                            filter={this.state.filter}
-                            onFilterChange={this.onFilterChange.bind(this)}/>
+                        <SearchField filter={this.state.filter}
+                                     onFilterChange={this.onFilterChange.bind(this)}/>
                     </div>
-
-
                 </div>
                 <div className="items-wrapper container">
                     { this.renderMoviesList() }
