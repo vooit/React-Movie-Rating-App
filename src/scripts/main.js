@@ -1,10 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
+
+import {Provider} from 'react-redux';
 
 import NavHeader from './NaviComponent';
-
-import './imagesloaded.pkgd.min.js';
-// import './GlitchTrigger.js';
+import './Helpers/imagesloaded.pkgd.min.js';
 import '../styles/styles.scss';
 
-ReactDOM.render(<NavHeader />, document.getElementById('app'));
+render(
+    <Provider>
+        <NavHeader />
+    </Provider>, document.getElementById('app'));

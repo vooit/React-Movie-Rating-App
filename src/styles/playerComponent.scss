@@ -53,18 +53,17 @@
 
   .play.active {
     border-color: transparent;
-  }
-
-  .play.active:after {
-    content: '';
-    opacity: 1;
-    width: 13px;
-    height: 16px;
-    position: absolute;
-    right: 1px;
-    top: -7px;
-    border-right: 4px solid white;
-    border-left: 4px solid white;
+    &:after {
+      content: '';
+      opacity: 1;
+      width: 4px;
+      height: 16px;
+      position: absolute;
+      right: 1px;
+      top: -7px;
+      border-right: 4px solid white;
+      border-left: 4px solid white;
+    }
   }
 }
 

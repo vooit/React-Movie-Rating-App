@@ -190,6 +190,8 @@ export default class MoviesList extends React.Component {
         this.setState({
             filter: value
         });
+
+        console.log(value)
     };
 
 
@@ -240,8 +242,6 @@ export default class MoviesList extends React.Component {
     }
 
 
-
-
     render() {
         const {movies} = this.state;
         //LOADER//
@@ -275,7 +275,7 @@ export default class MoviesList extends React.Component {
 
                         <AddMovieComponent
                             title={this.state.newTitle}
-                            newTitleError = {this.state.newTitleError}
+                            newTitleError={this.state.newTitleError}
                             onTitleChange={this.onTitleChange.bind(this)}
                             onFormSubmit={this.onFormSubmit.bind(this)}
                             onImageChange={this.onImageChange.bind(this)}/>
@@ -287,7 +287,34 @@ export default class MoviesList extends React.Component {
                     </div>
                 </div>
                 <div className="items-wrapper container">
-                    { this.renderMoviesList() }
+                    {movies.map((el, index) => {
+                        if (el.title.toLowerCase().indexOf(this.state.filter) !== -1) {
+                            return (
+                                <div key={index} className='item'>
+                                    <div className="item__header">
+                                        <FloatingActionButton
+                                            className="item__header--btn-delete"
+                                            mini={true}
+                                            backgroundColor="rgb(0, 188, 212)"
+                                            onClick={this.onDeleteClick.bind(this, el.id)}>
+                                            <ActionAndroid />
+                                        </FloatingActionButton>
+                                        <span className='item__header--idBadge'>{el.id}</span>
+                                        <h2>{el.title}</h2>
+                                    </div>
+                                    <div className="item__body">
+                                        <div className="item__body--poster"><img src={el.poster}/>
+                                        </div>
+                                        <RatingButtonComponent movieId={el.id}/>
+                                    </div>
+                                    <div className="item__footer">
+                                        <Stars movieId={el.id} movieTitle={el.title}/>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    })}
+
                 </div>
             </div>
         )

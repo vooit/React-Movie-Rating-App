@@ -15,7 +15,7 @@ const NotFound = () => {
         center: {
           textAlign:'center'
         }
-        
+
     }
 
     return (

@@ -1,6 +1,4 @@
-/**
- * Created by Wojtek on 2017-12-06.
- */
+
 import React from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentSearch from 'material-ui/svg-icons/device/location-searching';
@@ -19,6 +17,9 @@ export default class SearchField extends React.Component {
             showing: !(prevState.showing)
         }))
     }
+
+
+
 
     render() {
         return (<div>
