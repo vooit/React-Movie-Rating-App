@@ -11,8 +11,6 @@ $spacer-top: 56px;
   font-family: 'Roboto', sans-serif !important;
 }
 
-
-
 body {
   background-image: url("/src/img/yoda_bg.jpg");
   background-size: cover;
@@ -28,10 +26,36 @@ body {
     width: 100%;
   }
 }
+
+.button {
+  height: 30px;
+  position: absolute;
+  min-width: 120px;
+  z-index: 100;
+  cursor: pointer;
+  line-height: 30px;
+  background-color: black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-block;
+  color: orange;
+  transition: .2s ease-out;
+  border-width: 1px;
+  border-style: solid;
+  outline: none;
+  border-radius: 0 0 5px 0;
+}
+
+.button:hover {
+  color: darken(orange, 20%);
+}
+
 .active {
   color: orange !important;
   border-bottom: 1px solid orange !important;
 }
+
 .popup {
   background: rgba(51, 51, 51, 0.8);
   position: absolute;
@@ -41,7 +65,7 @@ body {
   transform: translate(-50%, -50%);
   border-radius: 4px;
   width: 90%;
-  .popup_inner {
+  &__inner {
     width: 79%;
     padding: 38px 10px;
     h1 {
@@ -51,7 +75,7 @@ body {
 }
 
 .panel {
-  z-index: 200;
+  z-index: 90;
   transition: all .4s ease-out;
   background-color: rgba(0, 0, 0, 0.9);
   position: absolute;
@@ -172,19 +196,18 @@ body {
     justify-content: space-around;
     flex-wrap: wrap;
     .item {
+      background: rgba(0, 0, 0, 0.6);
       width: 30%;
       border-radius: 5px;
       flex-basis: auto;
       margin: 5% 0;
       position: relative !important;
-      overflow: hidden;
       transition: .2s linear;
-      cursor: pointer;
       &:hover {
-        transform: scale(1.02);
+        transform: scale(1.01);
+        background: rgba(0, 0, 0, 1);
       }
       &__header {
-        background: black;
         h2 {
           font-size: 1.2em;
           font-weight: 400;
@@ -199,14 +222,17 @@ body {
           padding: 0 5px 5px 2px;
         }
         &--btn-delete {
-          right: 0 !important;
-          top: 0 !important;
+          position: absolute;
+          right: -9px;
+          top: -7px;
+          z-index: 10;
         }
       }
       &__body {
-        background: black;
         img {
-          width: 100%;
+          width: 50%;
+          margin: 0 auto;
+          display: block;
         }
       }
       &__body--poster {
@@ -225,7 +251,9 @@ body {
           text-align: center;
         }
       }
+      &__footer {
 
+      }
     }
   }
 }
@@ -233,31 +261,31 @@ body {
 .form-control {
   text-align: center;
   padding: 7px;
-  color: black!important;
+  color: black !important;
 }
 
 :focus::-webkit-input-placeholder {
   opacity: 0;
-  -webkit-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
 
 :focus:-moz-placeholder {
   opacity: 0;
-  -moz-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
 
 :focus::-moz-placeholder {
   opacity: 0;
-  -moz-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
 }
 
 :focus:-ms-input-placeholder {
   opacity: 0;
-  -ms-transition: opacity 0.35s ease-in-out;
   transition: opacity 0.35s ease-in-out;
+}
+
+.text-white {
+  color: white;
 }
 
 @media (min-width: 1200px) {
@@ -281,9 +309,6 @@ body {
     }
 
   }
-  .button:active {
-    margin-top: 0;
-  }
   .movies-list {
     width: 100%;
     flex-basis: auto;
@@ -295,5 +320,4 @@ body {
       }
     }
   }
-
 }

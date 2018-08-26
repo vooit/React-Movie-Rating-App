@@ -38,7 +38,8 @@ const AddMovieComponent = (props) => {
                     backgroundColor="#a4c639"
                     onChange={props.onImageChange}
                     mini={true}>
-                    <input type="file" style={styles.uploadInput}/>
+                    <input type="file"
+                           style={styles.uploadInput}/>
                     <FileAdd/>
                 </FloatingActionButton>
                 <label htmlFor="newItemInput">{props.newTitleError}</label>
@@ -48,7 +49,10 @@ const AddMovieComponent = (props) => {
                        value={props.title}
                        placeholder="title"
                        onChange={props.onTitleChange}/>
-                <FloatingActionButton type="submit" className="translate-left" mini={true}>
+                <FloatingActionButton
+                    type="submit"
+                    className="translate-left"
+                    mini={true}>
                     <ContentAdd />
                 </FloatingActionButton>
             </form>

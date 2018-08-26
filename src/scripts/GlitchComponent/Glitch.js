@@ -1,8 +1,4 @@
-/**
- * Created by Wojtek on 2017-12-21.
- */
 import React from 'react';
-
 
 const Glitch = () => {
     return (

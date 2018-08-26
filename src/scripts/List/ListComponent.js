@@ -1,6 +1,3 @@
-/**
- * Created by Wojtek on 2017-10-19.
- */
 import React from 'react';
 import LoaderWars from './LoaderComponent';
 import AddMovieComponent from './AddMovieComponent';
@@ -9,6 +6,7 @@ import RatingButtonComponent from './RatingButtonComponent';
 import SortButton from './SortButtonComponent';
 import SearchField from './SearchComponent';
 import PlayButton from './PlayerComponent';
+import FavoriteList from './FavoriteListComponent';
 
 //Material UI Buttons
 import ActionAndroid from 'material-ui/svg-icons/action/delete';
@@ -20,6 +18,7 @@ export default class MoviesList extends React.Component {
         this.state = {
             movies: [],
             ratings: [],
+            favorites: [],
             newTitle: '',
             newTitleError: '',
             newPoster: '',
@@ -46,8 +45,6 @@ export default class MoviesList extends React.Component {
         this.getMovies()
             .then((Response) => Response.json())
             .then((movies, playing) => {
-                console.log(movies);
-                console.log(playing);
                 this.setState({
                     movies
                 });
@@ -57,14 +54,6 @@ export default class MoviesList extends React.Component {
                 console.log(err);
             })
     }
-
-    onFilterChange(event) {
-        const value = event.currentTarget.value;
-
-        this.setState({
-            filter: value
-        });
-    };
 
 
     //------------------------------------------------------
@@ -107,6 +96,7 @@ export default class MoviesList extends React.Component {
         })
 
     }
+
 
     //LOAD IMAGE
     onImageChange(event) {
@@ -168,7 +158,6 @@ export default class MoviesList extends React.Component {
 
     handlePlay(e) {
         e.preventDefault();
-        console.log(this.state.playing);
         if (this.state.playing) {
             this.audio.pause();
         }
@@ -186,13 +175,24 @@ export default class MoviesList extends React.Component {
     //FILTERING LIST
     onFilterChange(event) {
         const value = event.currentTarget.value;
-
         this.setState({
             filter: value
         });
-
-        console.log(value)
     };
+
+    addToFav(el) {
+        console.log(el)
+        const newArr = [...this.state.favorites, el]
+        this.setState((prevState) => ({
+                favorites: newArr
+            })
+        )
+        console.log(this.state.favorites)
+    }
+
+    favItemremover() {
+        console.log('on remove item from fav lists')
+    }
 
 
     handleTogglePanel() {
@@ -204,17 +204,7 @@ export default class MoviesList extends React.Component {
 
     //TABLE RENDER
     renderMoviesList() {
-        const styles = {
-            btnButton: {
-                position: 'absolute',
-                right: '-13px',
-                top: '-19px',
-                zIndex: '10'
-            },
-            card: {
-                fontSize: '.8em'
-            }
-        }
+
         return this.state.movies.map((el, index) =>
             <div key={index} className='item'>
                 <div className="item__header">
@@ -259,15 +249,18 @@ export default class MoviesList extends React.Component {
         //SEARCHFIELD//
         return (
             <div>
-                <a href="#" className="button"
-                   onClick={this.handleTogglePanel.bind(this)}>Panel</a>
+                <span className="button"
+                      onClick={this.handleTogglePanel.bind(this)}>
+                    {this.state.showingPanel ? 'Show' : 'Hide'} panel
+                </span>
                 <div className={ this.state.showingPanel ? "panel vissible" : "panel hidden" }>
                     <div className="panel--wrapper">
                         <PlayButton onClick={this.handlePlay.bind(this)}
                                     playing={this.state.playing}/>
-                        <audio id="audio" src="src/audio/star-wars-theme.mp3" ref={(audioTag) => {
-                            this.audio = audioTag
-                        }}/>
+                        <audio id="audio"
+                               src="src/audio/star-wars-theme.mp3"
+                               ref={(audioTag) => {
+                                   this.audio = audioTag}}/>
 
                         <SortButton
                             descendingSortBy={this.descendingSortBy.bind(this, 'id')}
@@ -288,7 +281,7 @@ export default class MoviesList extends React.Component {
                 </div>
                 <div className="items-wrapper container">
                     {movies.map((el, index) => {
-                        if (el.title.toLowerCase().indexOf(this.state.filter) !== -1) {
+                        if (el.title.toLowerCase().includes(this.state.filter.toLowerCase())) {
                             return (
                                 <div key={index} className='item'>
                                     <div className="item__header">
@@ -299,23 +292,32 @@ export default class MoviesList extends React.Component {
                                             onClick={this.onDeleteClick.bind(this, el.id)}>
                                             <ActionAndroid />
                                         </FloatingActionButton>
+
+
                                         <span className='item__header--idBadge'>{el.id}</span>
                                         <h2>{el.title}</h2>
                                     </div>
                                     <div className="item__body">
-                                        <div className="item__body--poster"><img src={el.poster}/>
+                                        <div className="item__body--poster">
+                                            <img src={el.poster}/>
                                         </div>
                                         <RatingButtonComponent movieId={el.id}/>
                                     </div>
+
                                     <div className="item__footer">
-                                        <Stars movieId={el.id} movieTitle={el.title}/>
+                                        <Stars movieId={el.id}
+                                               movieTitle={el.title}/>
+                                        <br/>
+                                        <span onClick={this.addToFav.bind(this, el)}
+                                              className="text-white"> add to favorites +</span>
                                     </div>
                                 </div>
                             )
                         }
                     })}
-
                 </div>
+                <FavoriteList favorites={this.state.favorites}
+                              favItemremover = {this.favItemremover.bind(this)}/>
             </div>
         )
     }

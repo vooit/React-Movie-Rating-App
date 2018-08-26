@@ -1,17 +1,13 @@
-/**
- * Created by Wojtek on 2017-12-01.
- */
-
 .starwars-loader {
-  z-index: 200;
+  position: absolute;
+  width: 34em;
+  left: 50%;
+  top: 53%;
+  transform: translate(-50%, 50%);
   perspective: 1200px;
   transform-style: preserve3d;
   height: 17em;
-  left: 50%;
-  position: absolute;
-  top: 53%;
-  transform: translate(-50%, 50%);
-  width: 34em;
+  z-index: 200;
   .star, .wars, .byline {
     position: absolute;
   }

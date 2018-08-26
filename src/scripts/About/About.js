@@ -1,6 +1,3 @@
-/**
- * Created by Wojtek on 2017-12-20.
- */
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';

@@ -1,6 +1,3 @@
-/**
- * Created by Wojtek on 2017-10-22.
- */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -52,7 +49,6 @@ export default class Stars extends React.Component {
             return response.json();
         })
             .then((result) => {
-                console.log(result);
                 this.setState({
                     showPopup: !this.state.showPopup
                 });
@@ -72,7 +68,6 @@ export default class Stars extends React.Component {
 
     render() {
         const stars = [];
-
         for (let i = 1; i <= this.props.max; i++) {
             stars.push(
                 <span className={i <= this.state.tmpRating ? 'rating-on' : null}
@@ -99,7 +94,8 @@ export default class Stars extends React.Component {
                     }
                 </div>
                 {this.state.showPopup ?
-                    <Popup textTitle={this.props.movieTitle} textRate={this.state.rating}
+                    <Popup textTitle={this.props.movieTitle}
+                           textRate={this.state.rating}
                            closePopup={this.togglePopup.bind(this)}/> : null}
             </div>
         )

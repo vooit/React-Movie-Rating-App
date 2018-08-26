@@ -33,7 +33,8 @@ export default class SearchField extends React.Component {
                         <ContentSearch /></FloatingActionButton>
                     <input
                         style={{opacity: (this.state.showing ? '1' : '0')}}
-                        value={this.props.filter} onChange={this.props.onFilterChange}
+                        value={this.props.filter}
+                        onChange={this.props.onFilterChange}
                         type="text"
                         placeholder="search list"
                         className={(this.state.showing ? 'test, form-control transition' : '0, form-center transition')}/>
